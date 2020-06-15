@@ -39,6 +39,7 @@ import { ReservaComponent } from 'app/reserva/reserva.component';
 import { DelReservaComponent } from 'app/del-reserva/del-reserva.component';
 import { DialogSemanasEspecificasComponent } from 'app/dialogs/dialog-semanas-especificas.component';
 import { DialogTextFieldComponent } from 'app/dialogs/dialog-textfield.component';
+import { DialogDeleteAsignationComponent } from 'app/dialogs/dialog-delete-asignation.component';
 import { RequestStatusPipe } from 'app/pipes/request-status/request-status.pipe';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DialogUploadImageComponent } from 'app/dialogs/dialog-upload-image.component';
@@ -79,6 +80,7 @@ import { DialogScheduleReservedComponent } from 'app/dialogs/dialog-schedule-res
     DelReservaComponent,
     DialogSemanasEspecificasComponent,
     DialogTextFieldComponent,
+    DialogDeleteAsignationComponent,
     LabfAdminComponent,
     NewRoomsComponent,
     ConfirmRejectionComponent,
@@ -93,6 +95,7 @@ import { DialogScheduleReservedComponent } from 'app/dialogs/dialog-schedule-res
   entryComponents: [
     DialogSemanasEspecificasComponent,
     DialogTextFieldComponent,
+    DialogDeleteAsignationComponent,
     LabfAdminComponent,
     ConfirmRejectionComponent,
     DialogUploadImageComponent,

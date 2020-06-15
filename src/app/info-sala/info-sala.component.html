@@ -84,6 +84,6 @@
   <button *ngIf="edit && !editItems" type="button" class="btn btn-danger btn-lg btn-block" (click)="cancel()">Cancelar</button>
   <button *ngIf="!edit" type="button" class="btn btn-warning btn-lg btn-block" routerLink="/horario/{{ room?.id }}">Horarios</button>
   <button *ngIf="!edit" type="button" class="btn btn-info btn-lg btn-block" routerLink="/reserva/{{ idroom }}">Reservar</button>
-  <button *ngIf="!edit" type="button" class="btn btn-info btn-lg btn-block" routerLink="/del-reserva/{{ idroom }}">Eliminar</button>
+  <button *ngIf="!edit" type="button" class="btn btn-danger btn-lg btn-block" routerLink="/del-reserva/{{ idroom }}">Eliminar</button>
 </div>
 
