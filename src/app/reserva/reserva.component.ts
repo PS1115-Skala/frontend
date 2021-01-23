@@ -150,7 +150,6 @@ export class ReservaComponent implements OnInit {
     let horario = [];
     // mapear horario
     this.dataSource.forEach( (h) => {
-      console.log(h);
       for (var index in h) {
         if ( index == 'lunesCheck' && h.lunesCheck) { let obj = { dia: 'lunes', hora: h.hora }; horario.push(obj) }
         else if ( index == 'martesCheck' && h.martesCheck) { let obj = { dia: 'martes', hora: h.hora }; horario.push(obj) }
