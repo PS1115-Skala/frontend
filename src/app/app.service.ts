@@ -212,6 +212,18 @@ export class AppService {
     return this.http.post(endpoint, body);
   }
 
+  createRequestToDelete( room: string, semanas: string, horarioList: any[], isAdmin: boolean): Observable<any> {
+      const endpoint = isAdmin ? API + 'eliminar/reserva' : API + '/';
+      const body = [];
+      const request = {
+        room: room,
+        semanas: semanas.length > 2 ? semanas : +semanas,
+      };
+      body.push(request);
+      body.push(...horarioList);
+      return this.http.post(endpoint, body);
+    }
+
   deleteUser(idRequest: string): Observable<any> {
     return this.http.delete(API + 'eliminar/solicitud/reserva/' + idRequest);
   }
