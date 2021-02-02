@@ -15,7 +15,7 @@
     "deploy:prod:sync": "aws s3 sync ./dist s3://skala-frontend-prod --delete"
   },
   "engines": {
-    "node": "6.11.1",
+    "node": "12.x",
     "npm": "3.10.9"
   },
   "private": true,

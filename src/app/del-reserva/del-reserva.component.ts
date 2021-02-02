@@ -3,16 +3,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogSemanasEspecificasComponent } from 'app/dialogs/dialog-semanas-especificas.component';
 import { AppService } from 'app/app.service';
-import { DialogTextFieldComponent } from 'app/dialogs/dialog-textfield.component';
+import { DialogDeleteAsignationComponent } from 'app/dialogs/dialog-delete-asignation.component';
 import { USER_TYPE } from 'app/interfaces/user';
 
 @Component({
-  selector: 'app-reserva',
-  templateUrl: './reserva.component.html',
-  styleUrls: ['./reserva.component.scss']
+  selector: 'app-del-reserva',
+  templateUrl: './del-reserva.component.html',
+  styleUrls: ['./del-reserva.component.scss']
 })
 
-export class ReservaComponent implements OnInit {
+export class DelReservaComponent implements OnInit {
   public roomId: string;
   public semanas: string;
   public materia: string;
@@ -59,7 +59,7 @@ export class ReservaComponent implements OnInit {
     this.semanaEspecifica = undefined; // limpia semana especifica
     if (this.semanas == 'especifica') {
       // dialog semanas especificas
-      let dialogRef = this.dialog.open(DialogSemanasEspecificasComponent, {
+      const dialogRef = this.dialog.open(DialogSemanasEspecificasComponent, {
         width: '300px',
         data: { data: data }
       })
@@ -68,8 +68,7 @@ export class ReservaComponent implements OnInit {
           this.semanas = undefined;
           this.isTableReady = false;
           this.dataSource = undefined;
-        }
-        else {
+        } else {
           this.semanaEspecifica = result;
           this.chgDetRef.detectChanges(); // previene error de cambios no detectados
           this.appService.getReservations(this.roomId, this.semanaEspecifica.toString())
@@ -101,7 +100,7 @@ export class ReservaComponent implements OnInit {
 
   generarTabla(data: any[]): any[] {
     let table = [];
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 11; index++) {
       table[index] =  { hora: index + 1 }
     }
     if ( data.length == 0 ) {
@@ -130,8 +129,7 @@ export class ReservaComponent implements OnInit {
   }
 
   puedeReservar(): boolean {
-    if (this.materia != undefined && this.cantidad >= 0  &&
-    this.cantidad != undefined && this.semanas != undefined) {
+    if (this.semanas != undefined) {
       const index = this.dataSource.findIndex(d => (
         d.lunesCheck == true || d.martesCheck == true || 
         d.miercolesCheck == true || d.juevesCheck == true || 
@@ -144,37 +142,39 @@ export class ReservaComponent implements OnInit {
   }
 
   reservar() {
-    let requester = localStorage.getItem('userId');
+    const requester = localStorage.getItem('userId');
     let isAdmin: boolean = false;
     this.appService.isUserType(USER_TYPE.LAB_ADMIN).then(response => { isAdmin = response; })
-    let horario = [];
+    const horario = [];
     // mapear horario
     this.dataSource.forEach( (h) => {
+      // console.log(h);
       for (var index in h) {
-        if ( index == 'lunesCheck' && h.lunesCheck) { let obj = { dia: 'lunes', hora: h.hora }; horario.push(obj) }
-        else if ( index == 'martesCheck' && h.martesCheck) { let obj = { dia: 'martes', hora: h.hora }; horario.push(obj) }
-        else if ( index == 'miercolesCheck' && h.miercolesCheck) { let obj = { dia: 'miercoles', hora: h.hora }; horario.push(obj) }
-        else if ( index == 'juevesCheck' && h.juevesCheck) { let obj = { dia: 'jueves', hora: h.hora }; horario.push(obj) }
-        else if ( index == 'viernesCheck' && h.viernesCheck) { let obj = { dia: 'viernes', hora: h.hora }; horario.push(obj) }
+        if ( index == 'lunesCheck' && h.lunesCheck) { let obj = { subject: h.lunes,
+           dia: 'lunes', hora: h.hora }; horario.push(obj) }
+        else if ( index == 'martesCheck' && h.martesCheck) { let obj = { subject: h.martes,
+           dia: 'martes', hora: h.hora }; horario.push(obj) }
+        else if ( index == 'miercolesCheck' && h.miercolesCheck) { let obj = { subject: h.miercoles,
+           dia: 'miercoles', hora: h.hora }; horario.push(obj) }
+        else if ( index == 'juevesCheck' && h.juevesCheck) { let obj = { subject: h.jueves,
+           dia: 'jueves', hora: h.hora }; horario.push(obj) }
+        else if ( index == 'viernesCheck' && h.viernesCheck) { let obj = { subject: h.viernes,
+           dia: 'viernes', hora: h.hora }; horario.push(obj) }
         else { } // otros horarios
       }
     })
-    let dialogFieldRef = this.dialog.open(DialogTextFieldComponent, {
-      data: { title: 'Reserva', message: 'Especifique si requiere de algo adicional'}
+    console.log(horario)
+    const dialogFieldRef = this.dialog.open(DialogDeleteAsignationComponent, {
+      data: { title: 'Elminar Reserva', message: 'Desea continuar? '}
     });
     dialogFieldRef.afterClosed().subscribe( result => {
       // es pepe 10000 porque si en el caption del dialogo se escribe No, no se hace la reserva
-      if (result != 'pepe10000'){
+      if (result != 'pepe10000') {
       // crear reserva
-        let material = result
-        this.appService.createRequest(
-          requester, 
-          this.materia, 
-          this.roomId, 
-          this.cantidad, 
-          material, 
-          this.semanas == 'especifica' ? this.semanaEspecifica.toString() : this.semanas, 
-          horario, 
+        this.appService.createRequestToDelete(
+          this.roomId,
+          this.semanas == 'especifica' ? this.semanaEspecifica.toString() : this.semanas,
+          horario,
           isAdmin
           )
         .subscribe( response => {

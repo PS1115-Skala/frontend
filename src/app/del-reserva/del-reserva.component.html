@@ -1,0 +1,113 @@
+<div class="main-content">
+  <div class="container-fluid">
+   
+    <div class="row">
+      <div class="card">
+        <div class="card-header card-header-info">
+          <h4 class="card-title">Sala Seleccionada: {{ roomId }}</h4>
+        </div>
+
+        <div class="card-body">
+          <!-- <mat-form-field>
+            <mat-select [(ngModel)]="materia" name="materia" placeholder="Materia" required>
+              <mat-option *ngFor="let option of materiasOptions" [value]="option.id"> {{ option.name }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="cantidad" name="cantidad" placeholder="Cantidad de Alumnos" required>
+          </mat-form-field> -->
+          <mat-form-field>
+            <mat-select [(ngModel)]="semanas" name="semanas" placeholder="Semanas" required (click)="onResetEspecifica()" (selectionChange)="onSelectSemanas()">
+              <mat-option [value]="'especifica'">Especifica</mat-option>
+              <mat-option [value]="'pares'">Pares</mat-option>
+              <mat-option [value]="'impares'">Impares</mat-option>
+              <mat-option [value]="'todas'">Todas</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="semanaEspecifica">
+            <input matInput [(ngModel)]="semanaEspecifica" name="semanaEspecifica" placeholder="Semana Especifica" disabled>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="isTableReady">
+      <div class="card">
+        <div class="card-header card-header-info">
+          <h5 class="card-title">Seleccione Horarios a eliminar </h5>
+        </div>
+
+        <div class="card-body">
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" summary="Eliminar Reserva">
+      
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Hora Column -->
+            <ng-container matColumnDef="hora">
+              <th mat-header-cell id="hora" *matHeaderCellDef> Hora </th>
+              <td mat-cell *matCellDef="let element"> {{element.hora}} </td>
+            </ng-container>
+          
+            <!-- Lunes Column -->
+            <ng-container matColumnDef="lunes">
+              <th mat-header-cell id="lunes" *matHeaderCellDef> Lunes </th>
+              <td mat-cell *matCellDef="let element"> {{element.lunes}} 
+                <div class="form-check" *ngIf="element.lunes != '' && element.lunes != undefined">
+                  <input type="checkbox" [(ngModel)]="element.lunesCheck"/>
+                </div>
+              </td>
+            </ng-container>
+          
+            <!-- Martes Column -->
+            <ng-container matColumnDef="martes">
+              <th mat-header-cell id="martes" *matHeaderCellDef> Martes </th>
+              <td mat-cell *matCellDef="let element"> {{element.martes}} 
+                <div class="form-check" *ngIf="element.martes != '' && element.martes != undefined">
+                  <input type="checkbox" [(ngModel)]="element.martesCheck">
+                </div>
+              </td>
+            </ng-container>
+          
+            <!-- Miercoles Column -->
+            <ng-container matColumnDef="miercoles">
+              <th mat-header-cell id="miercoles" *matHeaderCellDef> Miercoles </th>
+              <td mat-cell *matCellDef="let element"> {{element.miercoles}} 
+                <div class="form-check" *ngIf="element.miercoles != '' && element.miercoles != undefined">
+                  <input type="checkbox" [(ngModel)]="element.miercolesCheck">
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Jueves Column -->
+            <ng-container matColumnDef="jueves">
+              <th mat-header-cell id="jueves" *matHeaderCellDef> Jueves </th>
+              <td mat-cell *matCellDef="let element"> 
+                {{element.jueves}} 
+                <div class="form-check" *ngIf="element.jueves != '' && element.jueves != undefined">
+                  <input type="checkbox" [(ngModel)]="element.juevesCheck">
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Viernes Column -->
+            <ng-container matColumnDef="viernes">
+              <th mat-header-cell id="viernes" *matHeaderCellDef> Viernes </th>
+              <td mat-cell *matCellDef="let element"> {{element.viernes}} 
+                <div class="form-check" *ngIf="element.viernes != '' && element.viernes != undefined">
+                  <input type="checkbox" [(ngModel)]="element.viernesCheck">
+                </div>
+              </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <button type="button" class="btn btn-info btn-lg btn-block" [disabled]="!puedeReservar()" (click)="reservar()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+    
+
+</div>
