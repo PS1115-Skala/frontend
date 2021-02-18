@@ -46,6 +46,7 @@ import { DialogUploadImageComponent } from 'app/dialogs/dialog-upload-image.comp
 import { DialogAddItemComponent } from 'app/dialogs/dialog-add-item.component';
 import { DialogScheduleReservedComponent } from 'app/dialogs/dialog-schedule-reserved.component';
 import { UsuariosComponent } from 'app/usuarios/usuarios.component';
+import { DetalleUsuarioComponent } from 'app/usuarios/detalle-usuario/detalle-usuario.component';
 
 
 @NgModule({
@@ -93,6 +94,7 @@ import { UsuariosComponent } from 'app/usuarios/usuarios.component';
     DialogScheduleReservedComponent,
     RejectReasonComponent,
     UsuariosComponent,
+    DetalleUsuarioComponent,
   ],
   entryComponents: [
     DialogSemanasEspecificasComponent,

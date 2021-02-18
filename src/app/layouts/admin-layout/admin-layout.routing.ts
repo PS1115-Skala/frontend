@@ -11,6 +11,7 @@ import { DelReservaComponent } from 'app/del-reserva/del-reserva.component';
 import { LabfAdminComponent } from 'app/labf-admin/labf-admin.component';
 import { NewRoomsComponent } from 'app/new-rooms/new-rooms.component';
 import { UsuariosComponent } from 'app/usuarios/usuarios.component';
+import { DetalleUsuarioComponent } from 'app/usuarios/detalle-usuario/detalle-usuario.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -27,5 +28,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'horario/:rid',      component: HorarioComponent},
     { path: 'labf-admin', component: LabfAdminComponent },
     { path: 'new-rooms', component: NewRoomsComponent },
-    { path: 'usuarios', component: UsuariosComponent },
+    { path: 'usuarios', 
+    children: [
+        { path:':id', component: DetalleUsuarioComponent},
+        { path: '', component: UsuariosComponent}
+    ]},
 ];

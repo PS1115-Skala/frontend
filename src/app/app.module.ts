@@ -30,7 +30,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

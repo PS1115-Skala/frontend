@@ -95,6 +95,15 @@ export class AppService {
     return this.http.get<User[]>(API + 'usuarios/');
   }
 
+    /** Servicio para consultar usuario
+   * 
+   * @param {string} userId Id de Usuario
+   * @returns {User} 
+   */
+  getUser(userId: string): Observable<User> {
+    return this.http.get<User>(`${API}usuario/${userId}`);
+  }
+
   getSubjects(): Observable<any[]> {
     return this.http.get<any[]>(API + 'subjects/');
   }

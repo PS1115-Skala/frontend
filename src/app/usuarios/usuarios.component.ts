@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AppService } from 'app/app.service';
 
@@ -19,6 +20,7 @@ export class UsuariosComponent implements OnInit {
   constructor(
     private service: AppService,
     private formBuilder: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -44,7 +46,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   crearModificarUsuario(idUsuario?: string) {
-
+    this.router.navigate(['/usuarios/', idUsuario ? idUsuario : 'crear']);
   }
 
   deleteUser(idUsuario: string) {
@@ -52,7 +54,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   puedeCrear() {
-    return false;
+    return true;
   }
 
 }
