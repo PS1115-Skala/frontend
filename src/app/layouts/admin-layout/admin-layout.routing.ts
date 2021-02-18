@@ -12,6 +12,7 @@ import { LabfAdminComponent } from 'app/labf-admin/labf-admin.component';
 import { NewRoomsComponent } from 'app/new-rooms/new-rooms.component';
 import { UsuariosComponent } from 'app/usuarios/usuarios.component';
 import { DetalleUsuarioComponent } from 'app/usuarios/detalle-usuario/detalle-usuario.component';
+import { UsuariosGuardService } from './usuarios-guard.service';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -28,9 +29,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'horario/:rid',      component: HorarioComponent},
     { path: 'labf-admin', component: LabfAdminComponent },
     { path: 'new-rooms', component: NewRoomsComponent },
-    { path: 'usuarios', 
+    { path: 'usuarios',
     children: [
-        { path:':id', component: DetalleUsuarioComponent},
-        { path: '', component: UsuariosComponent}
+        { path:':id', component: DetalleUsuarioComponent, canActivate: [UsuariosGuardService]},
+        { path: '', component: UsuariosComponent, canActivate: [UsuariosGuardService]}
     ]},
 ];

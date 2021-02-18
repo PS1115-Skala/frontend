@@ -11,6 +11,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { UsuariosGuardService } from './layouts/admin-layout/usuarios-guard.service';
 
 
 
@@ -32,7 +33,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     AdminLayoutComponent,
     LoginComponent,
   ],
-  providers: [],
+  providers: [UsuariosGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
