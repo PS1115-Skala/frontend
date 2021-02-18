@@ -82,10 +82,16 @@ export class AppService {
     return this.http.get<Request[]>(API + url);
   }
 
-  getUsers(users?: string): Observable<User[]> {
-    if (users) {
-      return this.http.get<User[]>(API + 'usuarios/' + users);
+  /** Servicio para consultar usuarios
+   * 
+   * @param {'admin'|'profesor'|string} userType Tipos de usuarios
+   * @returns {User[]} 
+   */
+  getUsers(userType?: 'admin'|'profesor'|string): Observable<User[]> {
+    if (userType == 'admin' || userType == 'profesor') {
+      return this.http.get<User[]>(API + 'usuarios/' + userType);
     }
+    else if (userType != undefined) { console.warn('El parametro de tipo de usuario no es reconocido ', userType); }
     return this.http.get<User[]>(API + 'usuarios/');
   }
 
