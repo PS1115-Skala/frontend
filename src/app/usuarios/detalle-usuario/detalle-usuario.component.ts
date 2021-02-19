@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 import { AppService } from 'app/app.service';
 
 /** Componente Detalle de Usuario para modificar y crear usuario */
@@ -64,7 +65,11 @@ export class DetalleUsuarioComponent implements OnInit {
     });
   }
 
-  guardar() {
+  onFormChange() {
+
+  }
+
+  guardar(values) {
 
   }
 

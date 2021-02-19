@@ -8,7 +8,7 @@
         </div>
 
         <div class="card-body">
-          <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+          <form [formGroup]="form" (ngSubmit)="guardar(form.value)">
             <mat-form-field>
               <input matInput formControlName="id" name="id"
               placeholder="User" (keyup)="onFormChange()">
@@ -43,7 +43,7 @@
               </mat-select>
             </mat-form-field>
           </form>
-          <button type="submit" class="btn btn-info btn-lg btn-block"  (click)="guardar()">Guardar</button>
+          <button type="submit" class="btn btn-info btn-lg btn-block" >Guardar</button>
           <button type="button" class="btn btn-danger btn-lg btn-block"  (click)="regresar()">Regresar</button>
         </div>
 
