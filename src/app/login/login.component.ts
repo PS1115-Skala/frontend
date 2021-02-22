@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AppService } from 'app/app.service';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-login',
@@ -23,15 +24,17 @@ export class LoginComponent implements OnInit {
   public rights: string;
   public rightLink: string;
   public form: FormGroup;
+  public formato: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private appService: AppService
+    private appService: AppService,
+    private LoadingBar: LoadingBarService
   ) { }
 
   ngOnInit() {
-    localStorage.clear(); // DELETE THIS AFTER IMPLEMENTING A CORRECT LOGOUT
+    this.formato = ((localStorage.getItem("formato")) === "true") || !((localStorage.getItem("formato")) == null);
     this.isEnglish = false;
     this.title = "Enter your USBID and Password";
     this.paragraph = "For security reasons, please Log Out and Exit your \n web browser when you are done accessing services \n that require authentication!"
@@ -55,7 +58,7 @@ export class LoginComponent implements OnInit {
     this.rightLink = "JA-SIG Central Authentication Service 3.3.5"
 
     this.form = this.formBuilder.group({
-      usbId: [null, [Validators.required]],
+      usbId: [null, [Validators.required, Validators.pattern("[0-9][0-9]-[0-9]{5}"), Validators.maxLength(8), Validators.minLength(8)]],
       clave: [null, [Validators.required]],
       check: false
     })
@@ -67,9 +70,25 @@ export class LoginComponent implements OnInit {
       await this.appService.login(values.usbId).then(users => {
         const user = users[0];
       });
+      localStorage.clear();
       this.router.navigate(['dashboard']);
+    }
+    else{
+      this.LoadingBar.start();
+      localStorage.setItem("formato", String("true"));
+      this.ngOnInit();
+      this.LoadingBar.stop();
 
     }
   }
+
+  vinculo(){
+    this.LoadingBar.start();
+    localStorage.clear();
+    localStorage.setItem("idioma", String(this.isEnglish));
+    this.router.navigate(['sign-up']);
+    this.LoadingBar.stop();
+  }
+
 
 }

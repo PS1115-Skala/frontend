@@ -1,0 +1,79 @@
+<div class="container" style="background: #FFFFFF;">
+    <div style="margin-bottom: 120px;">
+      <img class="img-fluid" src="/assets/img/headerUSB.png" alt="CAS banner" />
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-4 col-xs-12">
+        <div class="card" style="background: #eee; margin-top: -30px;">
+          <div class="card-body">
+            <div class="card-title" align="center"> <strong>{{ isEnglish ? title : titulo }}</strong> </div>
+            <hr>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+              <div>
+                <label for="usbId">
+                  USBID:
+                </label>
+                <br>
+                <input id="usbId_input" type="email" formControlName="usbId" autocomplete="off">
+                &nbsp;
+                <label style="color:rgb(228, 4, 4);">{{ form.controls['usbId'].invalid && (form.controls['usbId'].dirty || form.controls['usbId'].touched) ? "  ⚠" : "" }} </label>
+              </div>
+              <div *ngIf="form.controls['usbId'].invalid && (form.controls['usbId'].dirty || form.controls['usbId'].touched)">
+                <div *ngIf="form.controls['usbId'].errors.required">
+                  <p style="color:rgb(228, 4, 4); margin:-0.5%">{{ isEnglish ? "You cannot leave the field blank." : "No puedes dejar el campo en blanco." }}</p>
+                </div>
+                <div *ngIf="form.controls['usbId'].errors.pattern">
+                  <p style="color:rgb(228, 4, 4); margin:-0.5% 0;">{{ isEnglish ? " Invalid format. (Ej. 12-34567)" : "Formato invalido. (Ej. 12-34567)" }}</p>
+                </div>
+                <div *ngIf="form.controls['usbId'].errors.maxlength">
+                  <p style="color:rgb(228, 4, 4);margin:-0.5% 0;">{{ isEnglish ? "You must enter a maximum of 8 characters." : "Debes ingresar maximo 8 caracteres." }}</p>
+                </div>
+                <div *ngIf="form.controls['usbId'].errors.minlength">
+                  <p style="color:rgb(228, 4, 4);margin:-0.5% 0;">{{ isEnglish ? "You must enter at least 8 characters." : "Debes ingresar minimo 8 caracteres." }}</p>
+                </div>
+              </div>
+              <div>
+                <label for="clave">
+                  {{ isEnglish ? 'Password:' : 'Contraseña:' }}
+                </label>
+                <br>
+                <input id="clave" type="password" formControlName="clave">
+                &nbsp;
+                <label style="color:rgb(228, 4, 4);">{{ form.controls['clave'].invalid && (form.controls['clave'].dirty || form.controls['clave'].touched) ? "  ⚠" : "" }} </label>
+              </div>
+              <div *ngIf="form.controls['clave'].invalid && (form.controls['clave'].dirty || form.controls['clave'].touched)">
+                <div *ngIf="form.controls['clave'].errors.required">
+                  <p style="color:rgb(228, 4, 4); margin:-0.5%">{{ isEnglish ? "You cannot leave the field blank." : "No puedes dejar el campo en blanco." }}</p>
+                </div>
+              </div>
+              <hr>
+              <div style="font-size: 12px;">
+                <div style="margin-top: -10px; margin-bottom: -10px;">{{ isEnglish ? note : nota }}</div>
+              </div>
+              <hr>
+              <button class="button" type="submit" [disabled]="form.invalid">{{ isEnglish ? 'continue registration' : 'Continuar registro'}}</button>
+              |
+              <span style="cursor: pointer;" (click)="form.reset()"> {{ isEnglish ? 'Clear' : 'Limpiar'}} </span>
+              <button class="button" (click)="regreso()" style="float: right;" type="button">{{ isEnglish ? 'Return' : 'Regresar'}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style=" margin-bottom: -15px; margin-top: 40px;"> <!-- footer -->
+      <div class="col-2">
+        <img class="img-fluid" src="/assets/img/logoGris.png" alt="logo USB">
+      </div>
+      <div style="font-size: x-small;">
+        <div *ngFor="let link of links" style="display: inline;"> <a href="{{link.url}}"> {{ link.text }}</a> | </div>
+        <div style="margin-top: -10px; margin-bottom: -10px;">{{ direccionSartenejas }}</div>
+        <div>{{ direccionCamuri }}</div>
+        <div style="margin-top: -10px; margin-bottom: -10px;">{{ contacto }}</div>
+      </div>
+    </div>
+    <hr>
+    <div style="font-size: x-small; margin-top: -10px;" class="text-right"> <!-- align right -->
+      <div style="color: #999"> {{rights}} </div>
+      <div style="color: #999"> Powered by <a href="https://www.apereo.org/">{{rightLink}}</a> </div>
+    </div>
+  </div>

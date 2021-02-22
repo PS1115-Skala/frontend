@@ -11,6 +11,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { SignUpComponent } from 'app/sign-up/sign-up.component';
+import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component';
 
 
 
@@ -30,7 +32,9 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent,
+    SignUpFinalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
