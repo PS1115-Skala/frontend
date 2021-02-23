@@ -33,11 +33,13 @@ export class SidebarComponent implements OnInit {
     this.app.isUserType(USER_TYPE.LAB_F).then(isLabF => {
       if (isLabF) {
         this.addAdminRoute();
+        this.addUsuariosRoute();
       }
     });
     this.app.isUserType(USER_TYPE.LAB_ADMIN).then(isLabAdmin => {
       if (isLabAdmin) {
         this.addNewRoomsRoute();
+        this.addUsuariosRoute();
       }
     });
     this.userName = localStorage.getItem('userName');
@@ -67,6 +69,15 @@ export class SidebarComponent implements OnInit {
       path: '/new-rooms',
       title: 'Nuevas Salas',
       icon: 'notifications',
+      class: ''
+    });
+  }
+
+  addUsuariosRoute() {
+    this.menuItems.push({
+      path: '/usuarios',
+      title: 'Usuarios',
+      icon: 'people',
       class: ''
     });
   }

@@ -122,6 +122,7 @@ export class NavbarComponent implements OnInit {
               return this.listTitles[item].title;
           }
       }
+      if (titlee.includes('usuarios')) { return 'Usuarios'; }
       
       return 'Dashboard';
     }

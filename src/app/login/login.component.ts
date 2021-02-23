@@ -71,7 +71,9 @@ export class LoginComponent implements OnInit {
       await this.appService.login(values.usbId).then(users => {
         const user = users[0];
       });
-      localStorage.clear();
+      await this.appService.loginPost(values.usbId, values.clave).then(users => {
+        const user = users[0];
+      });
       this.router.navigate(['dashboard']);
     }
     else{
