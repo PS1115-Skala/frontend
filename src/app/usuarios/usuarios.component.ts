@@ -26,12 +26,13 @@ export class UsuariosComponent implements OnInit {
   ngOnInit() {
     this.isTableReady = false;
     this.displayedColumns = ['id', 'name', 'email', 'type', 'is_active', 'modificar'];
-    this.form = this.formBuilder.group({ tipoUsuario: [null], });
-    this.tiposUsuarios = [{id: 'profesor', name: 'Profesor'}, {id: 'admin', name: 'Admin'}];
+    this.form = this.formBuilder.group({ tipoUsuario: ['todos'], });
+    this.tiposUsuarios = [{id: 'todos', name: 'Todos'}, {id: 'profesor', name: 'Profesor'}, {id: 'admin', name: 'Admin'}];
     this.cargarUsuarios();
   }
 
   cargarUsuarios(tipoUsuario?: string) {
+    tipoUsuario = tipoUsuario != 'todos' ? tipoUsuario : undefined;
     this.service.getUsers(tipoUsuario)
     .finally( () => {
       this.isTableReady = true;

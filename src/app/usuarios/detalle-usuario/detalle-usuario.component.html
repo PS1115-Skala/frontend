@@ -27,7 +27,6 @@
             <mat-form-field>
               <mat-select formControlName="type" name="type" placeholder="Tipo de Usuario"
               (selectionChange)="onFormChange('type')">
-                <mat-option></mat-option>
                 <mat-option *ngFor="let option of tiposUsuarios" [value]="option.id"> 
                   {{ option.name }} 
                 </mat-option>
