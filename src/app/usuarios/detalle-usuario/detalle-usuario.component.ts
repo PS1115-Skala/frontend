@@ -57,10 +57,11 @@ export class DetalleUsuarioComponent implements OnInit {
   /** Cargar Tipo Usuario de momento estatico */
   cargaTiposUsuarios() {
     this.tiposUsuarios = [
-      {id: 1111, name: '1111'},
-      {id: 2222, name: '2222'},
-      {id: 3333, name: '3333'},
-      {id: 4444, name: '4444'},
+      {id: 0, name: 'Departamento'},
+      {id: 1111, name: 'Estudiante'},
+      {id: 2222, name: 'Profesor'},
+      {id: 3333, name: 'Admin Lab'},
+      {id: 4444, name: 'Lab F'},
     ];
   }
 
