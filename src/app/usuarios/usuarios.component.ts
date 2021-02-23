@@ -41,6 +41,17 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
+  mapTipo(tipo: string): string {
+    let valor = '';
+    if (tipo == '0') { valor = 'Departamento'}
+    else if (tipo == '1111') { valor = 'Estudiante'}
+    else if (tipo == '2222') { valor = 'Profesor'}
+    else if (tipo == '3333') { valor = 'Admin Lab'}
+    else if (tipo == '4444') { valor = 'Lab F'}
+    else { console.warn('Tipo No definido'); }
+    return valor;
+  }
+
   onFormChange() {
     this.cargarUsuarios(this.form.value.tipoUsuario);
   }
