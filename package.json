@@ -6,10 +6,14 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && ng serve -o"
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && ng serve -o",
+    "build:prod": "git checkout develop && npm run build-prod",
+    "deploy:prod": "npm run build:prod && npm run deploy:prod:sync",
+    "deploy:prod:sync": "aws s3 sync ./dist s3://skala-frontend-prod --delete"
   },
   "engines": {
     "node": "12.x",

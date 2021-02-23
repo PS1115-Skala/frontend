@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'http://apireservac.xyz/api/'
+  api_url: 'https://reservac.live/api/'
 };

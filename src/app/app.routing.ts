@@ -4,6 +4,8 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';;
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from 'app/sign-up/sign-up.component';
+import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component';
 
 const routes: Routes =[
   {
@@ -14,6 +16,14 @@ const routes: Routes =[
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent
+  },
+  {
+    path: 'sign-up-final',
+    component: SignUpFinalComponent
   },
   {
     path: '',
