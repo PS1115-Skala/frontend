@@ -15,8 +15,12 @@
               </label>
               <br>
               <input id="usbId" type="email" formControlName="usbId">
+              &nbsp;
+              <label style="color:rgb(228, 4, 4);">{{ Formato ? "  ⚠" : "" }} </label>
             </div>
-          
+            <div *ngIf= formato>
+              <p style="color:rgb(228, 4, 4); margin:-0.5% 0;">{{ isEnglish ? "You cannot leave the field blank." : "No puedes dejar el campo en blanco." }}</p>
+            </div>
             <div>
               <label for="clave">
                 {{ isEnglish ? 'Password:' : 'Contraseña:' }}
@@ -31,12 +35,12 @@
                 {{ isEnglish ? checkText : textoCheck }}
               </span>
             </div>
-          
+            <button class="button" type="button" (click)="vinculo()" style="background:none;border:none; color: rgb(97, 150, 247);">{{ isEnglish ? 'You have not yet registered?' : '¿Aún no te has registrado?'}}</button>
             <hr>
             <button class="button" type="submit">{{ isEnglish ? 'Login' : 'Iniciar Sesion'}}</button>
             |
             <span style="cursor: pointer;" (click)="form.reset()"> {{ isEnglish ? 'Clear' : 'Limpiar'}} </span>
-          </form>
+          </form> 
         </div>
       </div>
     </div>
