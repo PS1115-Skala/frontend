@@ -10,6 +10,7 @@ import { Request, PutRequest } from './interfaces/request';
 import { Trimester } from './interfaces/trimester';
 import { RoomRequest } from './interfaces/room_request';
 import { Hourtable } from './interfaces/hourtable';
+//import { HttpHeaders } from '@angular/common/http';
 
 const API = environment.api_url;
 
@@ -28,6 +29,26 @@ export class AppService {
 
   get user(): User {
     return this._user;
+  }
+
+  async datosUsuario(usbId: string, clave: string): Promise<any> {
+    const userData = this.http.post<any>(API + 'usuario/userInfo', {usbId, clave}).toPromise();
+    await userData.then((data: any) => {
+        localStorage.setItem('token', data.token);
+    });
+    return userData;
+  }
+
+  async signUp(usbId: string, clave1: string, clave2: string): Promise<any> {
+    const token = localStorage.getItem("token");
+    const header = new HttpHeaders({
+    'x-access-token': token})
+    const userData = this.http.post<any>(API + 'usario/signup', {usbId, clave1, clave2}, {headers: header}).toPromise();
+    //console.log(userData);
+    await userData.then((data: any) => {
+        //console.log(data);
+    });
+    return userData;
   }
 
   async login(username: string): Promise<User[]> {

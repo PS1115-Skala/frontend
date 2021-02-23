@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AppService } from 'app/app.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
@@ -23,6 +23,7 @@ export class SignUpFinalComponent implements OnInit {
     public nombre: string;
     public correo: string;
     public tipo: string;
+    public datos: any;
   
     constructor(
       private formBuilder: FormBuilder,
@@ -86,11 +87,31 @@ export class SignUpFinalComponent implements OnInit {
         this.form.get('confirma_clave').dirty;
     }
     
-    registrarte(){
+    async onSubmit(){
+      //this.LoadingBar.start();
+      //localStorage.clear();
+      //this.router.navigate(['dashboard']);
+      //this.LoadingBar.stop();
       this.LoadingBar.start();
-      localStorage.clear();
-      this.router.navigate(['dashboard']);
-      this.LoadingBar.stop();
+      if (this.form.valid) {
+        await this.appService.signUp(this.correo,this.form.value.clave, this.form.value.confirma_clave).then(datos => {
+          this.datos = datos;
+          this.router.navigate(['login']);
+          this.LoadingBar.stop();
+        }).catch(error => {
+          alert(error.error.error);
+          //console.log(error);
+          this.ngOnInit();
+          this.LoadingBar.stop();
+        });
+       // this.datos = this.appService.datosUsuario(this.form.value.usbId,this.form.value.clave);
+        //this.datos_usuario[0] = "1";
+        //console.log(this.datos_usuario[0]);
+        //const navigationExtras: NavigationExtras = {state: {example: ["Cristopher", "15-10172", "Estudiante"]}};
+        //const navigationExtras: NavigationExtras = {state: {example: [this.datos.name, this.datos.usbId, this.datos.userType]}};
+        //this.router.navigate(['sign-up-final'], navigationExtras);
+      }
+      //this.LoadingBar.stop();
     }
   
     regreso(){

@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
     public nota: string;
     public note: string;
     public error: boolean;
-
+    public datos: any;
   
     constructor(
       private formBuilder: FormBuilder,
@@ -66,7 +66,8 @@ export class SignUpComponent implements OnInit {
       this.note = "Attention: We will not store your institutional password in our system."
   
       this.form = this.formBuilder.group({
-        usbId: [null, [Validators.required, Validators.pattern("[0-9][0-9]-[0-9]{5}"), Validators.maxLength(8), Validators.minLength(8)]],
+        //usbId: [null, [Validators.required, Validators.pattern("[0-9][0-9]-[0-9]{5}"), Validators.maxLength(8), Validators.minLength(8)]],
+        usbId: [null, [Validators.required]],
         clave: [null, [Validators.required]],
         check: false
       })
@@ -74,13 +75,29 @@ export class SignUpComponent implements OnInit {
 
     async onSubmit() {
       // console.log(values);
+      //alert("error");
       this.LoadingBar.start();
       if (this.form.valid) {
-        const navigationExtras: NavigationExtras = {state: {example: ["Cristopher", "15-10172", "Estudiante"]}};
-        this.router.navigate(['sign-up-final'], navigationExtras);
+        await this.appService.datosUsuario(this.form.value.usbId,this.form.value.clave).then(datos => {
+          this.datos = datos;
+          const navigationExtras: NavigationExtras = {state: {example: [this.datos.name, this.datos.usbId, this.datos.userType]}};
+          this.router.navigate(['sign-up-final'], navigationExtras);
+        }).catch(error => {
+          //console.log(error);
+          alert(error.error.error);
+          this.ngOnInit();
+          this.LoadingBar.stop();
+
+       // this.datos = this.appService.datosUsuario(this.form.value.usbId,this.form.value.clave);
+        //this.datos_usuario[0] = "1";
+        //console.log(this.datos_usuario[0]);
+        //const navigationExtras: NavigationExtras = {state: {example: ["Cristopher", "15-10172", "Estudiante"]}};
+        
+        })
+        this.LoadingBar.stop();
       }
-      this.LoadingBar.stop();
     }
+
   
     regreso(){
       this.LoadingBar.start();

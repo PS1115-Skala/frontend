@@ -15,21 +15,21 @@
                             {{ isEnglish ? 'Name:' : 'Nombre:' }}
                         </label>
                         <br>
-                        <input type="text" id= "primero" value= "{{ nombre }}" disabled>
+                        <input type="text" id= "primero" value= "{{ nombre }}" disabled style = "width: 100%;">
                       </div>
                       <div>
                         <label for="Correo">
                             {{ isEnglish ? 'Email:' : 'Correo:' }}
                         </label>
                         <br>
-                        <input type="text" value= "{{ correo }}" disabled>
+                        <input type="text" value= "{{ correo }}" disabled style = "width: 100%;">
                       </div>
                       <div>
                         <label for="Tipo">
                             {{ isEnglish ? 'Type:' : 'Tipo:' }}
                         </label>
                         <br>
-                        <input type="text" value= "{{ tipo }}" disabled>
+                        <input type="text" value= "{{ tipo }}" disabled style = "width: 100%;">
                       </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 </div>
               </div>
               <hr>
-              <button class="mat-raised-button" [disabled]="form.invalid" style="color: rgb(255, 255, 255); background-color: rgb(29, 110, 29)" (click)="registrarte()" type="submit">{{ isEnglish ? 'Sign up' : 'Registrarte'}}</button>
+              <button class="mat-raised-button" [disabled]="form.invalid" style="color: rgb(255, 255, 255); background-color: rgb(29, 110, 29)" type="submit">{{ isEnglish ? 'Sign up' : 'Registrarte'}}</button>
               |
               <span style="cursor: pointer;" (click)="form.reset()"> {{ isEnglish ? 'Clear' : 'Limpiar'}} </span>
               <button class="button" (click)="regreso()" style="float: right;" type="button">{{ isEnglish ? 'Return' : 'Regresar'}}</button>

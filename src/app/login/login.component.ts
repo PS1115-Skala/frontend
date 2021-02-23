@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
     this.rightLink = "JA-SIG Central Authentication Service 3.3.5"
 
     this.form = this.formBuilder.group({
-      usbId: [null, [Validators.required, Validators.pattern("[0-9][0-9]-[0-9]{5}"), Validators.maxLength(8), Validators.minLength(8)]],
+      //usbId: [null, [Validators.required, Validators.pattern("[0-9][0-9]-[0-9]{5}"), Validators.maxLength(8), Validators.minLength(8)]],
+      usbId: [null, [Validators.required]],
       clave: [null, [Validators.required]],
       check: false
     })

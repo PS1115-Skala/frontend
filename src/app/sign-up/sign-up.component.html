@@ -22,7 +22,7 @@
                 <div *ngIf="form.controls['usbId'].errors.required">
                   <p style="color:rgb(228, 4, 4); margin:-0.5%">{{ isEnglish ? "You cannot leave the field blank." : "No puedes dejar el campo en blanco." }}</p>
                 </div>
-                <div *ngIf="form.controls['usbId'].errors.pattern">
+                <!--<div *ngIf="form.controls['usbId'].errors.pattern">
                   <p style="color:rgb(228, 4, 4); margin:-0.5% 0;">{{ isEnglish ? " Invalid format. (Ej. 12-34567)" : "Formato invalido. (Ej. 12-34567)" }}</p>
                 </div>
                 <div *ngIf="form.controls['usbId'].errors.maxlength">
@@ -30,7 +30,7 @@
                 </div>
                 <div *ngIf="form.controls['usbId'].errors.minlength">
                   <p style="color:rgb(228, 4, 4);margin:-0.5% 0;">{{ isEnglish ? "You must enter at least 8 characters." : "Debes ingresar minimo 8 caracteres." }}</p>
-                </div>
+                </div>-->
               </div>
               <div>
                 <label for="clave">
@@ -77,3 +77,4 @@
       <div style="color: #999"> Powered by <a href="https://www.apereo.org/">{{rightLink}}</a> </div>
     </div>
   </div>
+  
