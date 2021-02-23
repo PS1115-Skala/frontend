@@ -25,7 +25,7 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.isTableReady = false;
-    this.displayedColumns = ['id', 'name', 'email', 'type', 'is_active', 'modificar', 'eliminar'];
+    this.displayedColumns = ['id', 'name', 'email', 'type', 'is_active', 'modificar'];
     this.form = this.formBuilder.group({ tipoUsuario: [null], });
     this.tiposUsuarios = [{id: 'profesor', name: 'Profesor'}, {id: 'admin', name: 'Admin'}];
     this.cargarUsuarios();

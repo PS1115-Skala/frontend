@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppService } from 'app/app.service';
 
@@ -16,13 +17,17 @@ export class DetalleUsuarioComponent implements OnInit {
   public id: string;
   public form: FormGroup;
   public tiposUsuarios: any[];
-  public estatus: any[]
+  public estatus: any[];
+  public options: any[];
+  public camposModificados: string[];
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private formBuilder: FormBuilder,
     private service: AppService,
+    private _snackBar: MatSnackBar,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -30,6 +35,7 @@ export class DetalleUsuarioComponent implements OnInit {
     this.definirFormulario();
     this.cargaTiposUsuarios();
     this.cargaEstatus();
+    this.cargarOptions();
     if (this.id) { this.cargarUsuario(); }
   }
 
@@ -39,12 +45,14 @@ export class DetalleUsuarioComponent implements OnInit {
       name: [null],
       email: [null],
       type: [null], 
-      activo: [null]
+      verificado: [null],
+      activo: [null],
+      chief: [null]
     });
   }
 
   /** Cargar estatus de momento estaticos */
-  cargaEstatus() { this.estatus = [ {id: true, name: 'Activo'}, {id: false, name: 'Inactivo'}, ]; }
+  cargaEstatus() { this.estatus = [ {id: 1, name: 'Activo'}, {id: 0, name: 'Inactivo'}, ]; }
 
   /** Cargar Tipo Usuario de momento estatico */
   cargaTiposUsuarios() {
@@ -56,23 +64,55 @@ export class DetalleUsuarioComponent implements OnInit {
     ];
   }
 
+  cargarOptions() {
+    this.options = [ {id: true, name: 'Si'}, {id: false, name: 'No'} ];
+  }
+
   /** Cargar Informacion de usuario */
   cargarUsuario() {
+    this.camposModificados = ['id'];
     this.service.getUser(this.id).subscribe( response => { 
-      const campos = ['id', 'name', 'email', 'type'];
+      const campos = ['id', 'name', 'email', 'type', 'chief'];
       campos.forEach( campo => { this.form.controls[campo].setValue(response[0][campo]); });
+      this.form.controls['verificado'].setValue(response[0].is_verified);
       this.form.controls['activo'].setValue(response[0].is_active);
     });
   }
 
-  onFormChange() {
-
+  onFormChange(campo: string) {
+    if (this.id != undefined) { this.camposModificados.push(campo); }
   }
 
   guardar(values) {
-
+    console.log(values);
+    if (this.id == undefined) { // crear
+      this.service.createUser(values.id, values.name, values.email, values.type)
+      .finally( () => { this.router.navigate(['/usuarios/']); })
+      .subscribe( response => {
+        console.log(response);
+        this.showSnackBar(response.message);
+      });
+    }
+    else { // actualizar
+      let updValues = {...values};
+      const filtrados = Object.entries(updValues);
+      filtrados.forEach( v => { 
+        if (this.camposModificados.includes(v[0]) == false) {
+          updValues[v[0]] = null;
+        }
+      })
+      this.service.updateUser(updValues.id, updValues.name, updValues.email, updValues.type, updValues.verificado, updValues.activo, updValues.chief).subscribe( response => {
+        console.log(response);
+        this.showSnackBar(response.message);
+      });
+    }
   }
 
   regresar() { this.location.back(); }
+
+  /** Mensajito que sale cuando abajo en los botones de si y no */
+  showSnackBar(message: string) {
+    this._snackBar.open(message, null, { duration: 4000 });
+  }
 
 }
