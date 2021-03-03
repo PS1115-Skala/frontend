@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -41,10 +41,10 @@ export class DetalleUsuarioComponent implements OnInit {
 
   definirFormulario() {
     this.form = this.formBuilder.group({ 
-      id: [null],
-      name: [null],
-      email: [null],
-      type: [null], 
+      id: [null, [Validators.required]],
+      name: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email, Validators.pattern('([a-z,0-9,-]+@usb\.ve)')]],
+      type: [null, [Validators.required]], 
       verificado: [null],
       activo: [null],
       chief: [null]
@@ -77,6 +77,8 @@ export class DetalleUsuarioComponent implements OnInit {
       campos.forEach( campo => { this.form.controls[campo].setValue(response[0][campo]); });
       this.form.controls['verificado'].setValue(response[0].is_verified);
       this.form.controls['activo'].setValue(response[0].is_active);
+      this.form.controls['id'].disable();
+      this.form.controls['email'].disable();
     });
   }
 
