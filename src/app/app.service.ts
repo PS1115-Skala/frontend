@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
+import { environment } from 'environments/environment';
 import { Rooms } from 'app/interfaces/rooms';
 import { Items } from 'app/interfaces/items';
-import { environment } from 'environments/environment';
 import { User } from './interfaces/user';
 import { Request, PutRequest } from './interfaces/request';
 import { Trimester } from './interfaces/trimester';
@@ -22,7 +22,7 @@ export class AppService {
 
   private _user: User;
 
-  constructor(private http: HttpClient, private router: Router, ) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   set user(id: User) {
     this._user = id;
