@@ -98,7 +98,7 @@ export class AppService {
   getToken(): string { return localStorage.getItem('token'); }
 
   logout(unauthorized: boolean) {
-    if (unauthorized == true) { alert('No esta autorizado para realizar esta acción'); }
+    if (unauthorized) { alert('No esta autorizado para realizar esta acción'); }
     // llamada de servicio de logout ?
     this.router.navigate['login'];
     localStorage.clear();
