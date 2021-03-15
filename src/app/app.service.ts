@@ -64,7 +64,7 @@ export class AppService {
   async login(username: string): Promise<User[]> {
     const userData = this.http.get<User[]>(API + 'usuario/' + username).toPromise();
     await userData.then((data: User[]) => {
-      if (data.length === 1) {
+      if (data && data.length === 1) {
         this.user = data[0];
         localStorage.setItem('userId', this.user.id);
         localStorage.setItem('userName', this.user.name);
@@ -98,7 +98,7 @@ export class AppService {
   getToken(): string { return localStorage.getItem('token'); }
 
   logout(unauthorized: boolean) {
-    if (unauthorized) { throwError('No esta autorizado para realizar esta acción'); }
+    if (unauthorized == true) { alert('No esta autorizado para realizar esta acción'); }
     // llamada de servicio de logout ?
     this.router.navigate['login'];
     localStorage.clear();

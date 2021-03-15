@@ -13,14 +13,14 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private service: AppService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request.url.endsWith('/signin') || request.url.endsWith('/logout')) {
+    if (request.url.endsWith('/signin') || request.url.endsWith('/signup') || request.url.endsWith('/logout')) {
       return next.handle(request);
     }
 
     if (this.service.isLoggedIn()) {
       request = request.clone({
         setHeaders: {
-          'X-Auth-Token': this.service.getToken()
+          'x-access-token': this.service.getToken()
         }
       });
     }

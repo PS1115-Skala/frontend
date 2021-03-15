@@ -68,13 +68,15 @@ export class LoginComponent implements OnInit {
   async onSubmit(values) {
     // console.log(values);
     if (this.form.valid) {
-      await this.appService.login(values.usbId).then(users => {
-        const user = users[0];
-      });
       await this.appService.loginPost(values.usbId, values.clave).then(users => {
         const user = users[0];
+        this.appService.login(values.usbId).then(users => {
+          if (users != undefined) { 
+            const user = users[0]; 
+            this.router.navigate(['dashboard']);
+          }
+        });
       });
-      this.router.navigate(['dashboard']);
     }
     else{
       this.LoadingBar.start();
