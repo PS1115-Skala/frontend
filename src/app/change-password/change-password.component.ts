@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { AppService } from 'app/app.service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 @Component({
   selector: 'app-change-password-final',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
     public form: FormGroup;
@@ -31,10 +31,10 @@ export class ChangePasswordComponent implements OnInit {
       ): ValidationErrors | null => {
         const clave = control.get("clave")
         const confirma_clave = control.get("confirma_clave")
-      
         return clave.value === confirma_clave.value
           ? null
           : { noSonIguales: true }
+          
       }
   
       this.form = this.formBuilder.group({
@@ -46,6 +46,20 @@ export class ChangePasswordComponent implements OnInit {
       })
 
     }
+
+    /*get f() { return this.form.controls }
+    igualesValidator(): ValidatorFn {
+      return (control:AbstractControl) : ValidationErrors | null => {
+  
+        const clave = this.f.clave.value;
+        const confirma_clave = control.value;
+  
+        return clave === confirma_clave
+          ? null
+          : { noSonIguales: true }
+  
+      }
+    }*/
 
     checarSiSonIguales(): boolean {
       return this.form.hasError('noSonIguales') &&

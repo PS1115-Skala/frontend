@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, NgModule, ChangeDetectorRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { AppService } from 'app/app.service';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import { NgbModal, NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
  // public isEnglish: boolean;
@@ -26,16 +27,20 @@ export class LoginComponent implements OnInit {
   public modal_error: boolean;
   public form: FormGroup;
   //public formato: boolean;
+  @ViewChild("myModalInfo", {static: false}) myModalInfo: TemplateRef<any>;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private appService: AppService,
-    private LoadingBar: LoadingBarService
+    private LoadingBar: LoadingBarService,
+    private modalService: NgbModal,
+    private changeDetector : ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.modal_error= false;
+    //alert("hola");
     //this.formato = ((localStorage.getItem("formato")) === "true") || !((localStorage.getItem("formato")) == null);
     //this.isEnglish = false;
     //this.title = "Enter your USBID and Password";
@@ -69,14 +74,25 @@ export class LoginComponent implements OnInit {
 
   async onSubmit(values) {
     // console.log(values);
+    this.LoadingBar.start();
     if (this.form.valid) {
-      await this.appService.login(values.usbId).then(users => {
+      /*await this.appService.login(values.usbId).then(users => {
         const user = users[0];
-      });
+      });*/
       await this.appService.loginPost(values.usbId, values.clave).then(users => {
         const user = users[0];
+        this.router.navigate(['dashboard']);
+        this.LoadingBar.stop();
+      }).catch(error => {
+        //console.log(error);
+        //this.changeDetector.detectChanges();
+        this.changeDetector.detectChanges();
+        this.modalService.open(this.myModalInfo);
+        //this.ngOnInit();
+        this.form.reset();
+        //this.modal_error=true;
+        this.LoadingBar.stop();
       });
-      this.router.navigate(['dashboard']);
     }
     else{
       this.LoadingBar.start();

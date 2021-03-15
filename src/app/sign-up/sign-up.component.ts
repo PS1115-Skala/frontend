@@ -1,14 +1,15 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, NgModule, ChangeDetectorRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { AppService } from 'app/app.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import { NgbModal, NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
     //public isEnglish: boolean;
@@ -26,14 +27,16 @@ export class SignUpComponent implements OnInit {
     public error: boolean;
     public datos: any;
     public modal_error: boolean;
+    @ViewChild("myModalInfo", {static: false}) myModalInfo: TemplateRef<any>;
 
-  
     constructor(
       private formBuilder: FormBuilder,
       private router: Router,
       private appService: AppService,
       private route: ActivatedRoute,
-      private LoadingBar: LoadingBarService
+      private LoadingBar: LoadingBarService,
+      private modalService: NgbModal,
+      private changeDetector : ChangeDetectorRef
     ) { 
     }
   
@@ -80,8 +83,11 @@ export class SignUpComponent implements OnInit {
           this.router.navigate(['sign-up-final'], navigationExtras);
         }).catch(error => {
           //console.log(error);
-          this.ngOnInit();
-          this.modal_error=true;
+          this.changeDetector.detectChanges();
+          this.modalService.open(this.myModalInfo);
+         // this.ngOnInit();
+          this.form.reset();
+          //this.modal_error=true;
           this.LoadingBar.stop();
         })
         this.LoadingBar.stop();
