@@ -6,6 +6,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from 'app/sign-up/sign-up.component';
 import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component';
+import { RecoverPasswordComponent } from 'app/recover-password/recover-password.component';
+import { ChangePasswordComponent } from 'app/change-password/change-password.component';
+
 
 const routes: Routes =[
   {
@@ -24,6 +27,14 @@ const routes: Routes =[
   {
     path: 'sign-up-final',
     component: SignUpFinalComponent
+  },
+  {
+    path: 'recover-password',
+    component: RecoverPasswordComponent
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   },
   {
     path: '',

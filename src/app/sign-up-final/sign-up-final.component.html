@@ -1,4 +1,4 @@
-<div class="container" style="background: #FFFFFF;">
+<!--<div class="container" style="background: #FFFFFF;">
     <div style="margin-bottom: 120px;">
       <img class="img-fluid" src="/assets/img/headerUSB.png" alt="CAS banner" />
     </div>
@@ -6,7 +6,7 @@
       <div class="col-md-4 col-xs-12">
         <div class="card" style="background: #eee; margin-top: -30px;">
           <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="card-title" align="center" style="font-size: 16px;"> <strong>{{ isEnglish ? "complete registration" : "Completa el registro" }}</strong> </div>
                 <div class="card" style="background: #eee;">
                     <div class="card-body">
@@ -81,7 +81,7 @@
         </div>
       </div>
     </div>
-    <div class="row" style=" margin-bottom: -15px; margin-top: 40px;"> <!-- footer -->
+    <div class="row" style=" margin-bottom: -15px; margin-top: 40px;"> 
       <div class="col-2">
         <img class="img-fluid" src="/assets/img/logoGris.png" alt="logo USB">
       </div>
@@ -93,8 +93,179 @@
       </div>
     </div>
     <hr>
-    <div style="font-size: x-small; margin-top: -10px;" class="text-right"> <!-- align right -->
+    <div style="font-size: x-small; margin-top: -10px;" class="text-right">
       <div style="color: #999"> {{rights}} </div>
       <div style="color: #999"> Powered by <a href="https://www.apereo.org/">{{rightLink}}</a> </div>
     </div>
+  </div>-->
+  <div class="wrapper wrapper-full-page" style="background-image: url('../../assets/img/cromo4.jpg'); background-size: 100% 100%; background-position: top center;">
+    <div class="page-header register-page header-filter">
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+        <div class="container">
+          <div class="navbar-wrapper">
+            <img class="img-fluid" src="/assets/img/skala.jpg" alt="CAS banner"width="41" height="41"/>
+            &nbsp;
+            <img class="img-fluid" src="/assets/img/reservac.png" alt="CAS banner"width="250" height="100"/>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a href="#/sign-up" class="nav-link">
+                  <i class="material-icons">person_add</i>
+                  Registrate
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href= "#/login" class="nav-link">
+                  <i class="material-icons">fingerprint</i>
+                  Iniciar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br>
+      <div class="container" style=" margin-top: 8%">
+        <div class="row">
+          <div class="col-md-9 ml-auto mr-auto">
+            <div class="card card-signup">
+              <div class="card-header card-header-white text-center" style="background-color: #3f41d1;">
+                <h2 class="card-title text-center">Registro</h2>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-5 ml-auto">
+                    <div class="info info-horizontal">
+                      <div class="icon icon-rose" style="display: flex">
+                        <i class="material-icons">speed</i>
+                        <h4 class="info-title">&nbsp;&nbsp;Facilidad</h4>
+                      </div>
+                      <div class="description">
+                        <p class="description" style="text-align: justify;">
+                          Reserva el aula o laboratorio de tu preferencia perteneciente a las subunidades del laboratorio F de forma rapida y sencilla.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="info info-horizontal">
+                      <div class="icon icon-primary"  style="display: flex">
+                        <i class="material-icons">groups</i>
+                        <h4 class="info-title">&nbsp;&nbsp;Variedad</h4>
+                      </div>
+                      <div class="description">
+                        <p class="description" style="text-align: justify;">
+                          Observa las caracteristicas que tienen las diversas aulas y laboratorios pertenecientes a las subunidades del laboratorio F.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="info info-horizontal">
+                      <div class="icon icon-info" style="display: flex">
+                        <i class="material-icons">self_improvement</i>
+                        <h4 class="info-title">&nbsp;&nbsp;Comodidad</h4>
+                      </div>
+                      <div class="description">
+                        <p class="description" style="text-align: justify;">
+                          Observa la disponibilidad de las diversas aulas o laboratorios de tu preferencia.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 mr-auto" >
+                    <div class="text-center justify-content-center">
+                      
+                      <h4 class="mt-3"> Complete el registro </h4>
+                    </div>
+                    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                      <div class="card" style="background: #eee; margin-top: 5px;">
+                        <div class="card-body">
+                          <div class="form-group has-default">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">face</i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" value= "{{ nombre }}" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group has-default">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">email</i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" value= "{{ correo }}" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group has-default">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  <i class="material-icons">info</i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" value= "{{ tipo }}" disabled>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group has-default">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">lock_outline</i>
+                            </span>
+                          </div>
+                          <input type="password" placeholder="Contraseña que usara en reservAC" class="form-control" required minLength="8" pattern = "([0-9a-zA-Z]*)" formControlName="clave" autocomplete="off">
+                        </div>
+                      </div>
+                      <div *ngIf="form.controls['clave'].invalid && (form.controls['clave'].dirty || form.controls['clave'].touched)">
+                        <div *ngIf="form.controls['clave'].errors.required">
+                          <p style="color:rgb(228, 4, 4); margin:-0.5%; margin-left: 20%;">{{"No puedes dejar el campo en blanco." }}</p>
+                        </div>
+                        <div *ngIf="form.controls['clave'].errors.pattern">
+                          <p style="color:rgb(228, 4, 4); margin:-0.5% 0; margin-left: 20%;">{{"Debe tener solo letras y números." }}</p>
+                        </div>
+                        <div *ngIf="form.controls['clave'].errors.minlength">
+                          <p style="color:rgb(228, 4, 4);margin:-0.5% 0; margin-left: 20%;">{{"Debes ingresar mínimo 8 caracteres." }}</p>
+                        </div>
+                      </div>
+                      <div class="form-group has-default">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">check</i>
+                            </span>
+                          </div>
+                          <input type="password" placeholder="Confirme la contraseña" class="form-control" required formControlName="confirma_clave">
+                        </div>
+                      </div>
+                      <div *ngIf="checarSiSonIguales()">
+                        <p style="color:rgb(228, 4, 4); margin:-0.5%; margin-left: 20%;">{{"Las contraseñas no coinciden." }}</p>
+                      </div>
+                      <div *ngIf="form.controls['confirma_clave'].invalid && (form.controls['confirma_clave'].dirty || form.controls['confirma_clave'].touched)">
+                        <div *ngIf="form.controls['confirma_clave'].errors.required">
+                          <p style="color:rgb(228, 4, 4); margin:-0.5%; margin-left: 20%;">{{"No puedes dejar el campo en blanco."}}</p>
+                        </div>
+                      </div>
+                      <div class="text-center">
+                        <button class="btn btn-primary btn-round" [disabled]="form.invalid" style="background-color: #4cca61; color: white">{{'Registrate'}}</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  

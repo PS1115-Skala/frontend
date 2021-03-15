@@ -11,20 +11,22 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-    public isEnglish: boolean;
-    public title: string;
-    public titulo: string;
-    public links: any[]; // url - text
-    public direccionSartenejas: string;
-    public direccionCamuri: string;
-    public contacto: string;
-    public rights: string;
-    public rightLink: string;
+    //public isEnglish: boolean;
+    //public title: string;
+    //public titulo: string;
+    //public links: any[]; // url - text
+    //public direccionSartenejas: string;
+    //public direccionCamuri: string;
+    //public contacto: string;
+    //public rights: string;
+    //public rightLink: string;
     public form: FormGroup;
-    public nota: string;
-    public note: string;
+    //public nota: string;
+    //public note: string;
     public error: boolean;
     public datos: any;
+    public modal_error: boolean;
+
   
     constructor(
       private formBuilder: FormBuilder,
@@ -33,22 +35,16 @@ export class SignUpComponent implements OnInit {
       private route: ActivatedRoute,
       private LoadingBar: LoadingBarService
     ) { 
-      /*try {const navigation = this.router.getCurrentNavigation();
-    const state = navigation.extras.state as {example: string};
-    this.isEnglish = Boolean(state.example);
-      }
-      catch(error){
-        this.router.navigate(['login']);
-      }*/
     }
   
     ngOnInit() {
       //localStorage.clear(); // DELETE THIS AFTER IMPLEMENTING A CORRECT LOGOUT
-      this.isEnglish = (localStorage.getItem("idioma")) === "true";
+     // this.isEnglish = (localStorage.getItem("idioma")) === "true";
+      this.modal_error= false;
       this.error = false;
-      this.title = "Please indicate your USBID and Institutional Password.";
-      this.titulo = "Por favor, indique su USBID y Contraseña institucional.";
-      this.links = [
+      //this.title = "Please indicate your USBID and Institutional Password.";
+      //this.titulo = "Por favor, indique su USBID y Contraseña institucional.";
+      /*this.links = [
         { url: 'http://www.usb.ve/home/node/68', text: 'e-virtual' },
         { url: 'https://webmail.usb.ve/', text: 'correo' }, 
         { url: 'https://esopo.usb.ve/', text: 'esopo' }, 
@@ -63,7 +59,7 @@ export class SignUpComponent implements OnInit {
       this.rights = "Copyright © 2005-2007 JA-SIG. All rights reserved." 
       this.rightLink = "JA-SIG Central Authentication Service 3.3.5"
       this.nota = "Atención: No almacenaremos su contraseña institucional en nuestro sistema."
-      this.note = "Attention: We will not store your institutional password in our system."
+      this.note = "Attention: We will not store your institutional password in our system."*/
   
       this.form = this.formBuilder.group({
         //usbId: [null, [Validators.required, Validators.pattern("[0-9][0-9]-[0-9]{5}"), Validators.maxLength(8), Validators.minLength(8)]],
@@ -84,28 +80,35 @@ export class SignUpComponent implements OnInit {
           this.router.navigate(['sign-up-final'], navigationExtras);
         }).catch(error => {
           //console.log(error);
-          alert(error.error.error);
           this.ngOnInit();
+          this.modal_error=true;
           this.LoadingBar.stop();
-
-       // this.datos = this.appService.datosUsuario(this.form.value.usbId,this.form.value.clave);
-        //this.datos_usuario[0] = "1";
-        //console.log(this.datos_usuario[0]);
-        //const navigationExtras: NavigationExtras = {state: {example: ["Cristopher", "15-10172", "Estudiante"]}};
-        
         })
         this.LoadingBar.stop();
       }
+      /*else{
+        this.LoadingBar.start();
+        this.ngOnInit();
+        this.modal_error=true;
+        this.LoadingBar.stop();
+  
+      }*/
     }
 
+    /*directo(){
+      const navigationExtras: NavigationExtras = {state: {example: ["cristopher", "15-10172", "estudiante"]}};
+      this.router.navigate(['sign-up-final'], navigationExtras);
+    }*/
   
-    regreso(){
+    /*regreso(){
       this.LoadingBar.start();
       localStorage.clear();
       this.router.navigate(['login']);
       this.LoadingBar.stop();
+    }*/
+    quitar_alerta(){
+      this.modal_error=false;
     }
-  
   
   }
 

@@ -13,6 +13,8 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { SignUpComponent } from 'app/sign-up/sign-up.component';
 import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component';
+import { RecoverPasswordComponent } from 'app/recover-password/recover-password.component';
+import { ChangePasswordComponent } from 'app/change-password/change-password.component';
 
 
 
@@ -34,7 +36,9 @@ import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component'
     AdminLayoutComponent,
     LoginComponent,
     SignUpComponent,
-    SignUpFinalComponent
+    SignUpFinalComponent,
+    RecoverPasswordComponent,
+    ChangePasswordComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
