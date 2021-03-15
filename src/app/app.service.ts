@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+
 import { Rooms } from 'app/interfaces/rooms';
 import { Items } from 'app/interfaces/items';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { User } from './interfaces/user';
 import { Request, PutRequest } from './interfaces/request';
 import { Trimester } from './interfaces/trimester';
 import { RoomRequest } from './interfaces/room_request';
 import { Hourtable } from './interfaces/hourtable';
-//import { HttpHeaders } from '@angular/common/http';
 
 const API = environment.api_url;
 
@@ -21,7 +22,7 @@ export class AppService {
 
   private _user: User;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, ) { }
 
   set user(id: User) {
     this._user = id;
@@ -31,6 +32,15 @@ export class AppService {
     return this._user;
   }
 
+  /** Nuevo login por token */
+  async loginPost(username: string, clave: string): Promise<any> {
+    const userData = this.http.post<User[]>(API + 'usuario/signin', {usbId: username, clave: clave}).toPromise();
+    await userData.then((data: any) => {
+      if (data !== undefined) { localStorage.setItem('token', data.token); }
+    });
+    return userData;
+  }
+  
   async datosUsuario(usbId: string, clave: string): Promise<any> {
     const userData = this.http.post<any>(API + 'usuario/userInfo', {usbId, clave}).toPromise();
     await userData.then((data: any) => {
@@ -83,6 +93,17 @@ export class AppService {
     });
   }
 
+  isLoggedIn(): boolean { return localStorage.getItem('token') != undefined; }
+
+  getToken(): string { return localStorage.getItem('token'); }
+
+  logout(unauthorized: boolean) {
+    if (unauthorized) { throwError('No esta autorizado para realizar esta acción'); }
+    // llamada de servicio de logout ?
+    this.router.navigate['login'];
+    localStorage.clear();
+  }
+
   getRooms(url: string): Observable<Rooms[]> {
     return this.http.get<Rooms[]>(API + url);
   }
@@ -103,11 +124,66 @@ export class AppService {
     return this.http.get<Request[]>(API + url);
   }
 
-  getUsers(users?: string): Observable<User[]> {
-    if (users) {
-      return this.http.get<User[]>(API + 'usuarios/' + users);
+  /** Servicio para consultar usuarios
+   * 
+   * @param {'admin'|'profesor'|string} userType Tipos de usuarios
+   * @returns {User[]} 
+   */
+  getUsers(userType?: 'admin'|'profesor'|string): Observable<User[]> {
+    if (userType == 'admin' || userType == 'profesor') {
+      return this.http.get<User[]>(API + 'usuarios/' + userType);
     }
+    else if (userType != undefined) { console.warn('El parametro de tipo de usuario no es reconocido ', userType); }
     return this.http.get<User[]>(API + 'usuarios/');
+  }
+
+    /** Servicio para consultar usuario
+   * 
+   * @param {string} userId Id de Usuario
+   * @returns {User} 
+   */
+  getUser(userId: string): Observable<User> {
+    return this.http.get<User>(`${API}usuario/${userId}`);
+  }
+
+  /** Crear Usuario desde pantalla de usuarios
+   * 
+   * @param {string} usbId 
+   * @param {string} userName 
+   * @param {string} userEmail 
+   * @param {number } userType 
+   */
+  createUser(usbId: string, userName: string, userEmail: string, userType: number): Observable<any> {
+    let body = {
+      usbId: usbId,
+      userName: userName,
+      userEmail: userEmail,
+      userType: userType
+    };
+    return this.http.post<any>(API + 'usuario/create', body);
+  }
+
+  /** Actualizar los campos que se toquen de usuario
+   * 
+   * @param id 
+   * @param name 
+   * @param email 
+   * @param type 
+   * @param is_verified 
+   * @param is_active 
+   * @param chief 
+   */
+  updateUser(id: string, name: string, email: string, type: number, is_verified: boolean, is_active: number, chief: string): Observable<any> {
+    let body = {
+      id: id,
+      name: name != null ? name: undefined,
+      email: email != null ? email : undefined,
+      type: type != null ? type : undefined,
+      is_verified: is_verified != null ? is_verified : undefined,
+      is_active: is_active != null ? is_active : undefined,
+      chief: chief != null ? chief : undefined
+    };
+    return this.http.put<any>(API + 'usuario/update', body);
   }
 
   getSubjects(): Observable<any[]> {
