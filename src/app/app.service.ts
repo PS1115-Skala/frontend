@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
-
 import { Rooms } from 'app/interfaces/rooms';
 import { Items } from 'app/interfaces/items';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { User } from './interfaces/user';
 import { Request, PutRequest } from './interfaces/request';
 import { Trimester } from './interfaces/trimester';
 import { RoomRequest } from './interfaces/room_request';
 import { Hourtable } from './interfaces/hourtable';
+//import { HttpHeaders } from '@angular/common/http';
 
 const API = environment.api_url;
 
@@ -22,7 +21,7 @@ export class AppService {
 
   private _user: User;
 
-  constructor(private http: HttpClient, private router: Router, ) { }
+  constructor(private http: HttpClient) { }
 
   set user(id: User) {
     this._user = id;
@@ -91,17 +90,6 @@ export class AppService {
         resolve(this.user && this.user.type === usertype);
       }
     });
-  }
-
-  isLoggedIn(): boolean { return localStorage.getItem('token') != undefined; }
-
-  getToken(): string { return localStorage.getItem('token'); }
-
-  logout(unauthorized: boolean) {
-    if (unauthorized) { throwError('No esta autorizado para realizar esta acción'); }
-    // llamada de servicio de logout ?
-    this.router.navigate['login'];
-    localStorage.clear();
   }
 
   getRooms(url: string): Observable<Rooms[]> {
