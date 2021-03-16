@@ -42,14 +42,17 @@ export class LoginComponent implements OnInit {
           if (users != undefined) { 
             const user = users[0]; 
             this.router.navigate(['dashboard']);
+            this.LoadingBar.stop();
           }
         }).catch(error => {
+          this.LoadingBar.stop();
           this.form.reset();
           setTimeout (() => {
               this.modalService.open(this.myModalInfo);
           });
           });
       }).catch(error => {
+        this.LoadingBar.stop();
         this.form.reset();
         setTimeout (() => {
             this.modalService.open(this.myModalInfo);
