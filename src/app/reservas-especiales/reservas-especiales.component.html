@@ -1,0 +1,53 @@
+<div class="main-content">
+  <div class="container-fluid">
+   
+    <div class="row">
+      <div class="card">
+        <div class="card-header card-header-info">
+          <h4 class="card-title">Reservas Especiales</h4>
+        </div>
+
+        <div class="card-body">
+          
+          <div *ngIf="!esMortal"> 
+            <form [formGroup]="form" >
+              <div class="row">
+                <div class="d-flex justify-content-end ml-auto">
+                  <div class="col">
+                    <button mat-raised-button class="btn btn-info" 
+                    type="button" (click)="onCreateReserv()">Crear Reserva</button>
+                  </div>
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-select [formControl]="form.controls['laboratorio']" name="laboratorio"
+                      placeholder="Laboratorio" (selectionChange)="onFormChange($event)">
+                        <mat-option></mat-option>
+                        <mat-option *ngFor="let option of laboratorios" [value]="option.id">
+                          {{ option.nombre }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-select [formControl]="form.controls['trimestre']" name="trimestre"
+                      placeholder="Trimestre" (selectionChange)="onFormChange($event)">
+                        <mat-option></mat-option>
+                        <mat-option *ngFor="let option of trimestres" [value]="option.id">
+                          {{ option.nombre }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <app-form-reservas-especiales *ngIf="showForm"></app-form-reservas-especiales>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

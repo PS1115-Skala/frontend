@@ -15,8 +15,6 @@ import { UsuariosGuardService } from './layouts/admin-layout/usuarios-guard.serv
 import { SignUpComponent } from 'app/sign-up/sign-up.component';
 import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component';
 
-
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -35,7 +33,7 @@ import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component'
     AdminLayoutComponent,
     LoginComponent,
     SignUpComponent,
-    SignUpFinalComponent
+    SignUpFinalComponent,
   ],
   providers: [UsuariosGuardService],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Rooms } from 'app/interfaces/rooms';
 import { Items } from 'app/interfaces/items';
 import { Observable, throwError } from 'rxjs';
@@ -245,6 +245,16 @@ export class AppService {
   getViewSchedule(request: string): Observable<any> {
     const endpoint = API + 'solicitudes/' + request + '/horario';
     return this.http.get<any>(endpoint);
+  }
+
+  getSpecialReservations(lab?: string, trimestre?: string, id?: number): Observable<any[]> {
+    let endpoint = API + 'special';
+    if (id) { endpoint = endpoint + `/${id}`; }
+    let params = new HttpParams();
+    if (lab) { params = params.append('lab', lab) }
+    if (trimestre) { params = params.append('trim', trimestre) }
+
+    return this.http.get<any[]>(endpoint, {params: params});
   }
 
   putRequest(requestId: string, putRequest: PutRequest): Observable<any> {

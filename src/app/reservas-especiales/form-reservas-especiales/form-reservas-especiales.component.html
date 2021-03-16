@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="create()">
+  <mat-form-field>
+    <input matInput [formControl]="form.controls['contact_name']" name="contact_name" placeholder="Nombre">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="form.controls['contact_email']" name="contact_email" placeholder="Correo" email>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="form.controls['reservation_day']" [matDatepicker]="picker"
+    placeholder="Fecha" date readonly (dateChange)="onFormChange()">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [formControl]="form.controls['reservation_hour']" name="reservation_hour"
+    placeholder="Hora" (selectionChange)="onFormChange($event)">
+      <mat-option></mat-option>
+      <mat-option *ngFor="let option of hours" [value]="option.id">
+        {{ option.nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [formControl]="form.controls['amount_people']" name="amount_people" placeholder="Cantidad de Personas">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput [formControl]="form.controls['observations']" name="observaitons" placeholder="Observaciones"></textarea>
+  </mat-form-field>
+  <div class="row">
+    <div class="d-flex justify-content-end ml-auto">
+      <div class="col">
+        <button mat-raised-button class="btn btn-info" type="submit" [disabled]="form.invalid">Crear</button>
+      </div>
+    </div>
+  </div>
+</form>

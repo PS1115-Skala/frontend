@@ -47,6 +47,8 @@ import { DialogAddItemComponent } from 'app/dialogs/dialog-add-item.component';
 import { DialogScheduleReservedComponent } from 'app/dialogs/dialog-schedule-reserved.component';
 import { UsuariosComponent } from 'app/usuarios/usuarios.component';
 import { DetalleUsuarioComponent } from 'app/usuarios/detalle-usuario/detalle-usuario.component';
+import { ReservasEspecialesComponent } from 'app/reservas-especiales/reservas-especiales.component';
+import { FormReservasEspecialesComponent } from 'app/reservas-especiales/form-reservas-especiales/form-reservas-especiales.component';
 
 
 @NgModule({
@@ -95,6 +97,8 @@ import { DetalleUsuarioComponent } from 'app/usuarios/detalle-usuario/detalle-us
     RejectReasonComponent,
     UsuariosComponent,
     DetalleUsuarioComponent,
+    ReservasEspecialesComponent,
+    FormReservasEspecialesComponent,
   ],
   entryComponents: [
     DialogSemanasEspecificasComponent,
