@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Rooms } from 'app/interfaces/rooms';
-import { Items } from 'app/interfaces/items';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
 import { environment } from 'environments/environment';
+import { Rooms } from 'app/interfaces/rooms';
+import { Items } from 'app/interfaces/items';
 import { User } from './interfaces/user';
 import { Request, PutRequest } from './interfaces/request';
 import { Trimester } from './interfaces/trimester';
 import { RoomRequest } from './interfaces/room_request';
 import { Hourtable } from './interfaces/hourtable';
-//import { HttpHeaders } from '@angular/common/http';
 
 const API = environment.api_url;
 
@@ -21,7 +22,7 @@ export class AppService {
 
   private _user: User;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   set user(id: User) {
     this._user = id;
@@ -63,7 +64,7 @@ export class AppService {
   async login(username: string): Promise<User[]> {
     const userData = this.http.get<User[]>(API + 'usuario/' + username).toPromise();
     await userData.then((data: User[]) => {
-      if (data.length === 1) {
+      if (data && data.length === 1) {
         this.user = data[0];
         localStorage.setItem('userId', this.user.id);
         localStorage.setItem('userName', this.user.name);
@@ -90,6 +91,17 @@ export class AppService {
         resolve(this.user && this.user.type === usertype);
       }
     });
+  }
+
+  isLoggedIn(): boolean { return localStorage.getItem('token') != undefined; }
+
+  getToken(): string { return localStorage.getItem('token'); }
+
+  logout(unauthorized: boolean) {
+    if (unauthorized) { alert('No esta autorizado para realizar esta acción'); }
+    // llamada de servicio de logout ?
+    this.router.navigate['login'];
+    localStorage.clear();
   }
 
   getRooms(url: string): Observable<Rooms[]> {
