@@ -36,23 +36,25 @@ export class LoginComponent implements OnInit {
   async onSubmit(values) {
     this.LoadingBar.start();
     if (this.form.valid) {
-      // Falta arreglar esta entrada del login
-
-      /*await this.appService.login(values.usbId).then(users => {
-        const user = users[0];
-      });*/
       await this.appService.loginPost(values.usbId, values.clave).then(users => {
         const user = users[0];
-        this.router.navigate(['dashboard']);
-        this.LoadingBar.stop();
+        this.appService.login(values.usbId).then(users => {
+          if (users != undefined) { 
+            const user = users[0]; 
+            this.router.navigate(['dashboard']);
+          }
+        }).catch(error => {
+          this.form.reset();
+          setTimeout (() => {
+              this.modalService.open(this.myModalInfo);
+          });
+          });
       }).catch(error => {
         this.form.reset();
         setTimeout (() => {
-          this.modalService.open(this.myModalInfo);
-       });
-        //this.ngOnInit();
-        this.LoadingBar.stop();
-      });
+            this.modalService.open(this.myModalInfo);
+        });
+        });
     }
   }
 
