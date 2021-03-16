@@ -14,7 +14,6 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { UsuariosGuardService } from './layouts/admin-layout/usuarios-guard.service';
 import { SignUpComponent } from 'app/sign-up/sign-up.component';
 import { SignUpFinalComponent } from 'app/sign-up-final/sign-up-final.component';
-import { AuthInterceptor } from './auth.interceptor';
 import { RecoverPasswordComponent } from 'app/recover-password/recover-password.component';
 import { ChangePasswordComponent } from 'app/change-password/change-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';

@@ -1,104 +1,4 @@
-<!--<div class="container" style="background: #FFFFFF;">
-    <div style="margin-bottom: 120px;">
-      <img class="img-fluid" src="/assets/img/headerUSB.png" alt="CAS banner" />
-    </div>
-    <div class="row justify-content-center align-items-center">
-      <div class="col-md-4 col-xs-12">
-        <div class="card" style="background: #eee; margin-top: -30px;">
-          <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <div class="card-title" align="center" style="font-size: 16px;"> <strong>{{ isEnglish ? "complete registration" : "Completa el registro" }}</strong> </div>
-                <div class="card" style="background: #eee;">
-                    <div class="card-body">
-                      <div>
-                        <label for="Nombre">
-                            {{ isEnglish ? 'Name:' : 'Nombre:' }}
-                        </label>
-                        <br>
-                        <input type="text" id= "primero" value= "{{ nombre }}" disabled style = "width: 100%;">
-                      </div>
-                      <div>
-                        <label for="Correo">
-                            {{ isEnglish ? 'Email:' : 'Correo:' }}
-                        </label>
-                        <br>
-                        <input type="text" value= "{{ correo }}" disabled style = "width: 100%;">
-                      </div>
-                      <div>
-                        <label for="Tipo">
-                            {{ isEnglish ? 'Type:' : 'Tipo:' }}
-                        </label>
-                        <br>
-                        <input type="text" value= "{{ tipo }}" disabled style = "width: 100%;">
-                      </div>
-                    </div>
-                </div>
-                <hr>
-              <div>
-                <label for="clave">
-                    {{ isEnglish ? 'Password that you will use in the system:' : 'Contraseña que usaras en el sistema:' }}
-                </label>
-                <br>
-                <input id="clave" type="password" formControlName="clave" autocomplete="off">
-                &nbsp;
-                <label style="color:rgb(228, 4, 4);">{{ form.controls['clave'].invalid && (form.controls['clave'].dirty || form.controls['clave'].touched) ? "  ⚠" : "" }} </label>
-              </div>
-              <div *ngIf="form.controls['clave'].invalid && (form.controls['clave'].dirty || form.controls['clave'].touched)">
-                <div *ngIf="form.controls['clave'].errors.required">
-                  <p style="color:rgb(228, 4, 4); margin:-0.5%">{{ isEnglish ? "You cannot leave the field blank." : "No puedes dejar el campo en blanco." }}</p>
-                </div>
-                <div *ngIf="form.controls['clave'].errors.pattern">
-                  <p style="color:rgb(228, 4, 4); margin:-0.5% 0;">{{ isEnglish ? "It must have only letters and numbers." : "Debe tener solo letras y números." }}</p>
-                </div>
-                <div *ngIf="form.controls['clave'].errors.minlength">
-                  <p style="color:rgb(228, 4, 4);margin:-0.5% 0;">{{ isEnglish ? "You must enter at least 8 characters." : "Debes ingresar mínimo 8 caracteres." }}</p>
-                </div>
-              </div>
-              <div>
-                <label for="confirma_clave">
-                  {{ isEnglish ? 'Password:' : 'Confirma la contraseña:' }}
-                </label>
-                <br>
-                <input id="confirma_clave" type="password" formControlName="confirma_clave">
-                &nbsp;
-                <label style="color:rgb(228, 4, 4);">{{ (form.controls['confirma_clave'].invalid && (form.controls['confirma_clave'].dirty || form.controls['confirma_clave'].touched)) || checarSiSonIguales() ? "  ⚠" : "" }} </label>
-              </div>
-              <div *ngIf="checarSiSonIguales()">
-                <p style="color:rgb(228, 4, 4); margin:-0.5%">{{ isEnglish ? "Passwords do not match." : "Las contraseñas no coinciden." }}</p>
-              </div>
-              <div *ngIf="form.controls['confirma_clave'].invalid && (form.controls['confirma_clave'].dirty || form.controls['confirma_clave'].touched)">
-                <div *ngIf="form.controls['confirma_clave'].errors.required">
-                  <p style="color:rgb(228, 4, 4); margin:-0.5%">{{ isEnglish ? "You cannot leave the field blank." : "No puedes dejar el campo en blanco." }}</p>
-                </div>
-              </div>
-              <hr>
-              <button class="mat-raised-button" [disabled]="form.invalid" style="color: rgb(255, 255, 255); background-color: rgb(29, 110, 29)" type="submit">{{ isEnglish ? 'Sign up' : 'Registrarte'}}</button>
-              |
-              <span style="cursor: pointer;" (click)="form.reset()"> {{ isEnglish ? 'Clear' : 'Limpiar'}} </span>
-              <button class="button" (click)="regreso()" style="float: right;" type="button">{{ isEnglish ? 'Return' : 'Regresar'}}</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row" style=" margin-bottom: -15px; margin-top: 40px;"> 
-      <div class="col-2">
-        <img class="img-fluid" src="/assets/img/logoGris.png" alt="logo USB">
-      </div>
-      <div style="font-size: x-small;">
-        <div *ngFor="let link of links" style="display: inline;"> <a href="{{link.url}}"> {{ link.text }}</a> | </div>
-        <div style="margin-top: -10px; margin-bottom: -10px;">{{ direccionSartenejas }}</div>
-        <div>{{ direccionCamuri }}</div>
-        <div style="margin-top: -10px; margin-bottom: -10px;">{{ contacto }}</div>
-      </div>
-    </div>
-    <hr>
-    <div style="font-size: x-small; margin-top: -10px;" class="text-right">
-      <div style="color: #999"> {{rights}} </div>
-      <div style="color: #999"> Powered by <a href="https://www.apereo.org/">{{rightLink}}</a> </div>
-    </div>
-  </div>-->
-  <div class="wrapper wrapper-full-page" style="background-image: url('../../assets/img/cromo4.jpg'); background-size: 100% 100%; background-position: top center;">
+  <div class="wrapper wrapper-full-page" style="background-image: url('../../assets/img/cromo4.jpg'); background-size: 100% 100%; background-position: center center; background-repeat: no-repeat; background-attachment: fixed;">
     <div class="page-header register-page header-filter">
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
         <div class="container">
@@ -132,7 +32,7 @@
         </div>
       </nav>
       <br>
-      <div class="container" style=" margin-top: 8%">
+      <div class="container" style=" margin-top: 5%">
         <div class="row">
           <div class="col-md-9 ml-auto mr-auto">
             <div class="card card-signup">
