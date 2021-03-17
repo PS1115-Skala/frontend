@@ -15,7 +15,7 @@
   </mat-form-field>
   <mat-form-field>
     <input matInput [formControl]="form.controls['reservation_day']" [matDatepicker]="picker"
-    placeholder="Fecha" date readonly (dateChange)="onFormChange()">
+    placeholder="Fecha" date readonly [min]="minDate" [max]="maxDate" (dateChange)="onFormChange()">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
