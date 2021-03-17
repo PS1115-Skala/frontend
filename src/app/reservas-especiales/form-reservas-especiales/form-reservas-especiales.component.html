@@ -1,6 +1,10 @@
+<p *ngIf="datos == undefined"> {{componentDescription}} </p>
 <form [formGroup]="form" (ngSubmit)="create()">
+  <mat-form-field *ngIf="datos != undefined">
+    <input matInput [formControl]="form.controls['requester_id']" name="requester_id" placeholder="Identificación de Solicitante">
+  </mat-form-field>
   <mat-form-field>
-    <input matInput [formControl]="form.controls['contact_name']" name="contact_name" placeholder="Nombre">
+    <input matInput [formControl]="form.controls['contact_name']" name="contact_name" placeholder="Nombre de Solicitante">
   </mat-form-field>
   <mat-form-field>
     <input matInput [formControl]="form.controls['contact_email']" name="contact_email" placeholder="Correo">
@@ -12,6 +16,9 @@
         {{ option.id }}
       </mat-option>
     </mat-select>
+  </mat-form-field>
+  <mat-form-field  *ngIf="datos != undefined">
+    <input matInput [formControl]="form.controls['trimester_id']" name="trimester_id" placeholder="Trimestre">
   </mat-form-field>
   <mat-form-field>
     <input matInput [formControl]="form.controls['reservation_day']" [matDatepicker]="picker"
@@ -33,7 +40,7 @@
   <mat-form-field>
     <textarea matInput [formControl]="form.controls['observations']" name="observaitons" placeholder="Observaciones"></textarea>
   </mat-form-field>
-  <div class="row">
+  <div *ngIf="datos == undefined" class="row">
     <div class="d-flex justify-content-end ml-auto">
       <div class="col">
         <button mat-raised-button class="btn btn-info" type="submit" [disabled]="form.invalid">Crear</button>

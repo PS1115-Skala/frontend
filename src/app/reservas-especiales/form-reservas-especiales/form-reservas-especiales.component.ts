@@ -9,9 +9,11 @@ import { AppService } from 'app/app.service';
 })
 export class FormReservasEspecialesComponent implements OnInit {
   public form: FormGroup;
+  public componentDescription: string;
   public hours: any[];
   public minDate: Date;
   public maxDate: Date;
+  @Input() datos: any;
   @Input() laboratorios: any[];
   @Output() formValues = new EventEmitter();
 
@@ -25,19 +27,28 @@ export class FormReservasEspecialesComponent implements OnInit {
       {id: '3:00PM'},{id: '4:00PM'},{id: '5:00PM'},{id: '6:00PM'},
     ];
     this.getEndTrimestre();
+    this.componentDescription = 'Formulario para crear Reservas Especiales';
+    if (this.datos != undefined) { this.cargarDatos(); }
   }
 
   createForm() {
     this.minDate = new Date();
     this.form = this.formBuilder.group({ 
       contact_name: [null, [Validators.required]], 
-      contact_email: [null, [Validators.required, Validators.email, Validators.pattern('([a-z,0-9,-]+@usb\.ve)')]],
+      contact_email: [null, [Validators.required, Validators.email]],
       laboratory: [null, [Validators.required]],
       reservation_day: [null, [Validators.required]],
       reservation_hour: [null, [Validators.required]],
       amount_people: [null, [Validators.required, Validators.pattern('([0-9]+)')]],
-      observations: [null] 
+      observations: [null],
+      requester_id: [null],
+      trimester_id: [null]
     });
+  }
+  
+  cargarDatos() {
+    this.form.patchValue(this.datos);
+    this.form.disable();
   }
 
   getEndTrimestre() {
