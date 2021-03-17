@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
     <div mat-dialog-content>
         <p *ngIf="message != undefined"> {{message}} </p>
         <div *ngIf="true">
-            <app-form-reservas-especiales [laboratorios]="laboratorios" (formValues)="onCrear($event)"></app-form-reservas-especiales>
+            <app-form-reservas-especiales [datos]="datos" [laboratorios]="laboratorios" (formValues)="onCrear($event)"></app-form-reservas-especiales>
         </div>
     </div>
     <div mat-dialog-actions align="left">
@@ -21,6 +21,7 @@ export class DialogFormReservasEspecialesComponent {
     public title: string;
     public message: string;
     public laboratorios: any[]
+    public datos: any;
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,6 +31,7 @@ export class DialogFormReservasEspecialesComponent {
         this.title = data.title;
         this.message = data.message;
         this.laboratorios = data.laboratorios;
+        this.datos = data.datos;
     }
 
     onCrear(event:any) {
