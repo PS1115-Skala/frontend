@@ -1,7 +1,7 @@
 <p *ngIf="datos == undefined"> {{componentDescription}} </p>
 <form [formGroup]="form" (ngSubmit)="create()">
   <mat-form-field *ngIf="datos != undefined">
-    <input matInput [formControl]="form.controls['requester_id']" name="requester_id" placeholder="Identificación de Solicitante">
+    <input matInput [formControl]="form.controls['requester_id']" name="requester_id" placeholder="Usuario Solicitante">
   </mat-form-field>
   <mat-form-field>
     <input matInput [formControl]="form.controls['contact_name']" name="contact_name" placeholder="Nombre de Solicitante">
