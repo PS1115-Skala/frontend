@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AppService } from 'app/app.service';
 import { DialogDeleteAsignationComponent } from 'app/dialogs/dialog-delete-asignation.component';
 import { DialogFormReservasEspecialesComponent } from 'app/dialogs/dialog-form-reservas-especiales.component';
@@ -18,8 +18,8 @@ export class ReservasEspecialesComponent implements OnInit {
   public form: FormGroup;
   public laboratorios: any[];
   public trimestres: any[];
-  public displayedColumns: string[] = ['contact_name', 'requester_id', 'laboratory', 'reservation_day', 'delete'];
-  public dataSource: any[];
+  public displayedColumns: string[] = ['contact_name', 'requester_id', 'laboratory', 'reservation_day', 'detail', 'delete'];
+  public dataSource: MatTableDataSource<any[]>;
 
   constructor(
     private service: AppService,
@@ -44,6 +44,7 @@ export class ReservasEspecialesComponent implements OnInit {
 
   /** para admin o labf */
   iniciarPantallaAdmin() {
+    this.dataSource = new MatTableDataSource();
     this.defineFilterForm();
     this.loadTrimestres();
     this.loadReservasEspeciales(this.isAdmin ? localStorage.getItem('userId') : null);
@@ -59,7 +60,16 @@ export class ReservasEspecialesComponent implements OnInit {
   }
   
   loadReservasEspeciales(laboratorio?: string, trimestre?: string) {
-    this.service.getSpecialReservations(laboratorio, trimestre).subscribe( response => this.dataSource = response );
+    this.service.getSpecialReservations(laboratorio, trimestre)
+    .subscribe( response => {
+      this.dataSource.data = response;
+      // ordenar por fecha
+      this.dataSource.data = this.dataSource.data.sort( (a: any, b: any) => {
+        if (a.reservation_day > b.reservation_day) { return -1 }
+        else if (a.reservation_day < b.reservation_day) { return 1}
+        else { return 0 }
+      });
+    });
   }
 
   /** Filtra reservas especiales de tabla */
@@ -77,6 +87,19 @@ export class ReservasEspecialesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe( result => { if (result != -1) { this.nuevaReserva(result); } });
+  }
+
+  detailReserva(idReserva: number) {
+    const laboratorio = this.form.value.laboratorio == 'todos' ? null : this.form.value.laboratorio;
+    const trimestre = this.form.value.trimestre == 'todos' ? null : this.form.value.trimestre;
+    this.service.getSpecialReservations(laboratorio, trimestre, idReserva).subscribe( response => {
+      let dialogRef = this.dialog.open(DialogFormReservasEspecialesComponent, { 
+        width: '575px',
+        data: {title: 'Detalle Reserva Especial', laboratorios: this.laboratorios, datos: response}
+      });
+  
+      dialogRef.afterClosed().subscribe( result => { if (result != -1) { console.warn('no debe pasar'); } });
+    });
   }
 
   deleteReserva(idReserva: any) {

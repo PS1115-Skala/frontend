@@ -15,15 +15,13 @@ export class UsuariosGuardService implements CanActivate {
     ): Promise<boolean|UrlTree> {
         return new Promise( resolve => {
             this.service.isUserType(USER_TYPE.LAB_F).then(isLabF => { 
-                this.service.isUserType(USER_TYPE.LAB_ADMIN).then(isLabAdmin => { 
-                    if ( isLabAdmin == false && isLabF == false) {
-                        alert('You are not allowed to view this page. You are redirected to Dashboard Page');
-                        this.router.navigate(["dashboard"]);
-                        resolve(false);
-                    } 
+                if ( isLabF == false) {
+                    alert('You are not allowed to view this page. You are redirected to Dashboard Page');
+                    this.router.navigate(["dashboard"]);
+                    resolve(false);
+                } 
              
-                    resolve(true);
-                });
+                resolve(true);
             });
 
         })
