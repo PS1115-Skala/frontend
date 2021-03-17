@@ -174,7 +174,7 @@
             <table class="table">
               <thead>
                 <th>Laboratorio</th>
-                <th>Total</th>
+                <th>Total Solicitudes</th>
                 <th>Número de Estudiantes</th>
                 <th>Aprobadas</th>
                 <th>Rechazadas/ No Atendidas</th>
@@ -182,8 +182,8 @@
               <tbody>
                 <tr *ngFor="let lab of this.metricsResponse.laboratories">
                   <td>{{ lab.labName }}</td>
-                  <td>{{ lab.totalStudents }}</td>
                   <td>{{ lab.totalRequest }}</td>
+                  <td>{{ lab.totalStudents }}</td>
                   <td>{{ lab.totalApproved }}</td>
                   <td>{{ lab.totalRejected }}</td>
                 </tr>
@@ -255,7 +255,7 @@
                 <th>Carrera</th>
                 <th>Tipo</th>
                 <th>Total Estudiantes</th>
-                <th>Total Estudiantes</th>
+                <th>Total Solicitudes</th>
               </thead>
               <tbody>
                 <tr *ngFor="let careers of this.metricsResponse.careers.rows">
