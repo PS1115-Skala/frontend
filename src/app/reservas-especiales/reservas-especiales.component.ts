@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { AppService } from 'app/app.service';
@@ -11,7 +11,7 @@ import { USER_TYPE } from 'app/interfaces/user';
   templateUrl: './reservas-especiales.component.html',
   styleUrls: ['./reservas-especiales.component.scss']
 })
-export class ReservasEspecialesComponent implements OnInit {
+export class ReservasEspecialesComponent implements OnInit, OnDestroy {
   public isAdmin: boolean;
   public isLabF: boolean;
   public reservasEspeciales: any[];
@@ -20,6 +20,7 @@ export class ReservasEspecialesComponent implements OnInit {
   public trimestres: any[];
   public displayedColumns: string[] = ['contact_name', 'requester_id', 'laboratory', 'reservation_day', 'detail', 'delete'];
   public dataSource: MatTableDataSource<any[]>;
+  public dialogRef: any;
 
   constructor(
     private service: AppService,
@@ -40,6 +41,10 @@ export class ReservasEspecialesComponent implements OnInit {
       else { this.iniciarPantallaAdmin(); }
     });
     this.service.getAdminLabs().subscribe( response => this.laboratorios = response );
+  }
+
+  ngOnDestroy() {
+    if (this.dialogRef) { this.dialogRef.close() }
   }
 
   /** para admin o labf */
@@ -81,33 +86,33 @@ export class ReservasEspecialesComponent implements OnInit {
 
   /** Abrir dialogo de form reservas especiales */
   onCreateReserv() {
-    let dialogRef = this.dialog.open(DialogFormReservasEspecialesComponent, { 
+    this.dialogRef = this.dialog.open(DialogFormReservasEspecialesComponent, { 
       width: '575px',
       data: {title: 'Crear Reserva Especial', laboratorios: this.laboratorios}
     });
 
-    dialogRef.afterClosed().subscribe( result => { if (result != -1) { this.nuevaReserva(result); } });
+    this.dialogRef.afterClosed().subscribe( result => { if (result != -1 && result != undefined) { this.nuevaReserva(result); } });
   }
 
   detailReserva(idReserva: number) {
     const laboratorio = this.form.value.laboratorio == 'todos' ? null : this.form.value.laboratorio;
     const trimestre = this.form.value.trimestre == 'todos' ? null : this.form.value.trimestre;
     this.service.getSpecialReservations(laboratorio, trimestre, idReserva).subscribe( response => {
-      let dialogRef = this.dialog.open(DialogFormReservasEspecialesComponent, { 
+      this.dialogRef = this.dialog.open(DialogFormReservasEspecialesComponent, { 
         width: '575px',
         data: {title: 'Detalle Reserva Especial', laboratorios: this.laboratorios, datos: response}
       });
   
-      dialogRef.afterClosed().subscribe( result => { if (result != -1) { console.warn('no debe pasar'); } });
+      this.dialogRef.afterClosed().subscribe( result => { if (result != -1 && result != undefined) { console.warn('no debe pasar'); } });
     });
   }
 
   deleteReserva(idReserva: any) {
-    let confirmationRef = this.dialog.open(DialogDeleteAsignationComponent, {
+    this.dialogRef = this.dialog.open(DialogDeleteAsignationComponent, {
       data: {title: 'Atención', message: 'Esta seguro que desea eliminar la reserva ' + idReserva}
     });
 
-    confirmationRef.afterClosed().subscribe( result => {
+    this.dialogRef.afterClosed().subscribe( result => {
       if (result == 'Si') {
         this.service.deleteSpecialReservation(idReserva).subscribe(response => {
           this.showSnackBar(response.message);

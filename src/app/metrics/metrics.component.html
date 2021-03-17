@@ -1,0 +1,280 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row mt-5">
+      <div class="col-md-3">
+        <h5>Laboratorio Seleccionado:</h5>
+        <div class="dropdown" *ngIf="selectedRoom">
+          <button
+            mat-raised-button
+            color="primary"
+            href="#"
+            class="dropdown-toggle btn-block"
+            data-toggle="dropdown"
+            aria-expanded="true"
+            style="white-space: normal; word-wrap: break-word"
+          >
+            {{ selectedRoom.name }}
+            <b class="caret"></b>
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let room of rooms; index as i">
+              <a
+                *ngIf="selectedRoom.name != room.name"
+                (click)="changeSelectedRoom(i)"
+                >{{ room.name }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <h5>Filtrar métricas por:</h5>
+        <div class="dropdown">
+          <button
+            mat-raised-button
+            color="primary"
+            href="#"
+            class="dropdown-toggle btn-block"
+            data-toggle="dropdown"
+            aria-expanded="true"
+          >
+            <span>{{ selectedfilterBy }}</span>
+            <b class="caret"></b>
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let filter of filterBy; index as i">
+              <a
+                *ngIf="filter != selectedfilterBy"
+                (click)="changeFilterBy(i)"
+                >{{ filter }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <h5>Trimestre de Inicio:</h5>
+        <div class="dropdown" data-dropup-auto="false">
+          <button
+            mat-raised-button
+            color="primary"
+            href="#"
+            class="dropdown-toggle btn-block"
+            data-toggle="dropdown"
+            aria-expanded="true"
+            data-flip="false"
+            *ngIf="terms.length > 0"
+            [disabled]="filterByHistoric"
+          >
+            <span *ngIf="!selectedBeginTerm"> Selecciona un trimestre </span>
+            <span *ngIf="selectedBeginTerm">{{ selectedBeginTerm.id }}</span>
+            <b class="caret"></b>
+          </button>
+          <ul class="dropdown-menu">
+            <div class="row" style="width: 120%">
+              <li *ngFor="let term of terms; index as i">
+                <a
+                  *ngIf="
+                    (selectedBeginTerm && term.id != selectedBeginTerm.id) ||
+                    !selectedBeginTerm
+                  "
+                  (click)="changeSelectedBeginTerm(term)"
+                  class="col-md-3 col-sm-6 col-xs-12"
+                  >{{ term.id }}</a
+                >
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <h5>Trimestre de Finalización:</h5>
+        <div class="dropdown">
+          <button
+            mat-raised-button
+            color="primary"
+            href="#"
+            class="dropdown-toggle btn-block"
+            data-toggle="dropdown"
+            aria-expanded="true"
+            data-flip="false"
+            *ngIf="terms.length > 0"
+            [disabled]="filterByHistoric || filterByTerm"
+          >
+            <span *ngIf="!selectedEndTerm"> Selecciona un trimestre </span>
+            <span *ngIf="selectedEndTerm">{{ selectedEndTerm.id }}</span>
+            <b class="caret"></b>
+          </button>
+          <ul class="dropdown-menu">
+            <div class="row" style="width: 120%">
+              <li *ngFor="let term of terms; index as i">
+                <a
+                  *ngIf="
+                    (selectedEndTerm && term.id != selectedEndTerm.id) ||
+                    !selectedEndTerm
+                  "
+                  (click)="changeSelectedEndTerm(term)"
+                  class="col-md-3 col-sm-6 col-xs-12"
+                  >{{ term.id }}</a
+                >
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="metricsResponse">
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <div
+            class="card"
+            style="
+              margin: 0;
+              top: 50%;
+              -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+            "
+          >
+            <div class="card-header card-header-info">
+              <h4 class="card-title">Solicitudes Aprobadas vs Rechazadas</h4>
+            </div>
+            <div class="card-body mt-4">
+              <div class="ct-chart" id="approvedVsRejected"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-4" *ngFor="let cardsMetric of cardsMetrics">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">{{ cardsMetric.icon }}</i>
+                  </div>
+                  <p class="card-category">{{ cardsMetric.title }}</p>
+                  <h3 class="card-title">
+                    {{ cardsMetric.stat }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-12" *ngIf="selectedRoom && !selectedRoom.id">
+          <div class="card card-plain">
+            <div class="card-header card-header-info">
+              <h4 class="card-title">Solicitudes Atendidas por Laboratorios</h4>
+            </div>
+          </div>
+          <div class="card-content table-responsive table-full-width">
+            <table class="table">
+              <thead>
+                <th>Laboratorio</th>
+                <th>Total</th>
+                <th>Número de Estudiantes</th>
+                <th>Aprobadas</th>
+                <th>Rechazadas/ No Atendidas</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let lab of this.metricsResponse.laboratories">
+                  <td>{{ lab.labName }}</td>
+                  <td>{{ lab.totalStudents }}</td>
+                  <td>{{ lab.totalRequest }}</td>
+                  <td>{{ lab.totalApproved }}</td>
+                  <td>{{ lab.totalRejected }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-info">
+              <h4 class="card-title">Información por Asignaturas</h4>
+            </div>
+          </div>
+          <div class="card-content table-responsive table-full-width">
+            <table class="table">
+              <thead>
+                <th>Asignatura</th>
+                <th>Nombre de la Asignatura</th>
+                <th>Total Estudiantes</th>
+                <th>Total Solicitudes</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let subject of this.metricsResponse.subjects.rows">
+                  <td>{{ subject.id }}</td>
+                  <td>{{ subject.subjectName }}</td>
+                  <td>{{ subject.totalStudents }}</td>
+                  <td>{{ subject.totalRequests }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-info">
+              <h4 class="card-title">Información por Departamento</h4>
+            </div>
+          </div>
+          <div class="card-content table-responsive table-full-width">
+            <table class="table">
+              <thead>
+                <th>Departamento</th>
+                <th>Nombre del Departamento</th>
+                <th>Total Estudiantes</th>
+                <th>Total Solicitudes</th>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let deparment of this.metricsResponse.department.rows"
+                >
+                  <td>{{ deparment.id }}</td>
+                  <td>{{ deparment.deptName }}</td>
+                  <td>{{ deparment.totalStudents }}</td>
+                  <td>{{ deparment.totalRequests }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card card-plain">
+            <div class="card-header card-header-info">
+              <h4 class="card-title">Información por Carrera</h4>
+            </div>
+          </div>
+          <div class="card-content table-responsive table-full-width">
+            <table class="table">
+              <thead>
+                <th>Carrera</th>
+                <th>Tipo</th>
+                <th>Total Estudiantes</th>
+                <th>Total Estudiantes</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let careers of this.metricsResponse.careers.rows">
+                  <td>{{ careers.id }}</td>
+                  <td>{{ careersName[careers.type] }}</td>
+                  <td>{{ careers.totalStudents }}</td>
+                  <td>{{ careers.totalRequests }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!metricsResponse">
+    <div class="mt-5">
+      <h5>No se registrarón métricas para el trimestre seleccionado.</h5>
+    </div>
+  </div>
+</div>
