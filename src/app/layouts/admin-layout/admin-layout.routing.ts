@@ -13,13 +13,14 @@ import { NewRoomsComponent } from 'app/new-rooms/new-rooms.component';
 import { UsuariosComponent } from 'app/usuarios/usuarios.component';
 import { DetalleUsuarioComponent } from 'app/usuarios/detalle-usuario/detalle-usuario.component';
 import { UsuariosGuardService } from './usuarios-guard.service';
+import { ReservasEspecialesComponent } from 'app/reservas-especiales/reservas-especiales.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'info-sala/:rid',      component: InfoSalaComponent },
     { path: 'solicitudes',      component: RequestComponent },
     { path: 'laboratorios',
-    children: [
+      children: [
         { path:'salas/:id', component: SalasUserComponent},
         { path: '', component: LaboratoriosComponent}
     ]},
@@ -30,8 +31,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'labf-admin', component: LabfAdminComponent },
     { path: 'new-rooms', component: NewRoomsComponent },
     { path: 'usuarios',
-    children: [
+      children: [
         { path:':id', component: DetalleUsuarioComponent, canActivate: [UsuariosGuardService]},
         { path: '', component: UsuariosComponent, canActivate: [UsuariosGuardService]}
     ]},
+    { path: 'reservas-especiales', component: ReservasEspecialesComponent },
 ];

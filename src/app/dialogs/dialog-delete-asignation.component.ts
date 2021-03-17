@@ -26,6 +26,7 @@ export class DialogDeleteAsignationComponent {
     this.dialogRef.disableClose = true;
     this.title = data.title;
     this.message = data.message;
+    this.field = 'Si';
   }
 
   onClick(respuesta: string) {
