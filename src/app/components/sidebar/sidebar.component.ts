@@ -30,7 +30,6 @@ export const ROUTES: RouteInfo[] = [
     icon: "flare",
     class: "",
   },
-  { path: "/metricas", title: "Métricas", icon: "analytics", class: "" },
 ];
 
 @Component({
@@ -51,12 +50,14 @@ export class SidebarComponent implements OnInit {
       if (isLabF) {
         this.addAdminRoute();
         this.addUsuariosRoute();
+        this.addMetricRoute();
       }
     });
     this.app.isUserType(USER_TYPE.LAB_ADMIN).then((isLabAdmin) => {
       if (isLabAdmin) {
         this.addNewRoomsRoute();
         this.addUsuariosRoute();
+        this.addMetricRoute();
       }
     });
     this.userName = localStorage.getItem("userName");
@@ -95,6 +96,15 @@ export class SidebarComponent implements OnInit {
       path: "/usuarios",
       title: "Usuarios",
       icon: "people",
+      class: "",
+    });
+  }
+
+  addMetricRoute() {
+    this.menuItems.push({
+      path: "/metricas",
+      title: "Métricas",
+      icon: "analytics",
       class: "",
     });
   }
