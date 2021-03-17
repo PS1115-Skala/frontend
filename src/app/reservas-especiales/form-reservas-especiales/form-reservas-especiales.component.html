@@ -3,7 +3,15 @@
     <input matInput [formControl]="form.controls['contact_name']" name="contact_name" placeholder="Nombre">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [formControl]="form.controls['contact_email']" name="contact_email" placeholder="Correo" email>
+    <input matInput [formControl]="form.controls['contact_email']" name="contact_email" placeholder="Correo">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select [formControl]="form.controls['laboratory']" name="laboratory"
+    placeholder="Laboratorio" (selectionChange)="onFormChange($event)">
+      <mat-option *ngFor="let option of laboratorios" [value]="option.id">
+        {{ option.id }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field>
     <input matInput [formControl]="form.controls['reservation_day']" [matDatepicker]="picker"
@@ -14,9 +22,8 @@
   <mat-form-field>
     <mat-select [formControl]="form.controls['reservation_hour']" name="reservation_hour"
     placeholder="Hora" (selectionChange)="onFormChange($event)">
-      <mat-option></mat-option>
       <mat-option *ngFor="let option of hours" [value]="option.id">
-        {{ option.nombre }}
+        {{ option.id }}
       </mat-option>
     </mat-select>
   </mat-form-field>

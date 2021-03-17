@@ -202,6 +202,10 @@ export class AppService {
     return this.http.get<Trimester[]>(API + 'trimestre/ultimo');
   }
 
+  getTrimesters(): Observable<Trimester[]> {
+    return this.http.get<Trimester[]>(API + 'trimestre/todos');
+  }
+
   postRoomRequest(room_id: string): Observable<any> {
     const endpoint = API + 'sala/solicitudes/crear/' + this._user.id;
     return this.http.post(endpoint, { room_id });
@@ -330,6 +334,28 @@ export class AppService {
       body.push(...horarioList);
       return this.http.post(endpoint, body);
     }
+
+  /** crear reservarEspeciales 
+   * 
+   * Requiere Permisos de Logueado
+  ```ts
+  body = {
+    laboratory: 'ldc',
+    contact_name: 'Jose Barrera',
+    contact_email: '15-10123@usb.ve',
+    reservation_day: '2019-09-27',
+    reservation_hour: '01:00 PM',
+    amount_people: 8,
+    observations: 'Necesito video beam y 3 mesas'
+  }
+  ``` */
+  createSpecialReservation(body: any, userId: string): Observable<any> {
+    return this.http.post(API + `special/create/${userId}`, body);
+  }
+
+  deleteSpecialReservation(id: number): Observable<any> {
+    return this.http.delete(API + `special/${id}`);
+  }
 
   deleteUser(idRequest: string): Observable<any> {
     return this.http.delete(API + 'eliminar/solicitud/reserva/' + idRequest);

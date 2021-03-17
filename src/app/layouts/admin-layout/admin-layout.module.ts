@@ -49,6 +49,7 @@ import { UsuariosComponent } from 'app/usuarios/usuarios.component';
 import { DetalleUsuarioComponent } from 'app/usuarios/detalle-usuario/detalle-usuario.component';
 import { ReservasEspecialesComponent } from 'app/reservas-especiales/reservas-especiales.component';
 import { FormReservasEspecialesComponent } from 'app/reservas-especiales/form-reservas-especiales/form-reservas-especiales.component';
+import { DialogFormReservasEspecialesComponent } from 'app/dialogs/dialog-form-reservas-especiales.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { FormReservasEspecialesComponent } from 'app/reservas-especiales/form-re
     DetalleUsuarioComponent,
     ReservasEspecialesComponent,
     FormReservasEspecialesComponent,
+    DialogFormReservasEspecialesComponent,
   ],
   entryComponents: [
     DialogSemanasEspecificasComponent,
@@ -111,7 +113,8 @@ import { FormReservasEspecialesComponent } from 'app/reservas-especiales/form-re
     DialogScheduleReservedComponent,
     MaterialListComponent,
     ConfirmRejectionMessageComponent,
-    RejectReasonComponent
+    RejectReasonComponent,
+    DialogFormReservasEspecialesComponent,
   ],
   providers: [
     MatDatepickerModule,
