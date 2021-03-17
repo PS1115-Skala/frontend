@@ -12,49 +12,50 @@
                     <span class="row">
                         <mat-form-field>
                             <mat-label>Buscar Sala</mat-label>
-                            <input matInput type="text" (keyup)="applyFilter()" [(ngModel)]="filter">
+                            <input matInput type="text" [(ngModel)]="filter">
                             <button mat-button *ngIf="filter" matSuffix mat-icon-button aria-label="Borrar" (click)="filter='';applyFilter()">
                                 <mat-icon>close</mat-icon>
                             </button>
                         </mat-form-field>
-                        <button mat-raised-button type="button" class="btn btn-white btn-raised btn-fab btn-fab-mini btn-round">
+                        <button mat-raised-button type="button" (click)="applyFilter()"
+                        class="btn btn-white btn-raised btn-fab btn-fab-mini btn-round">
                             <mat-icon>search</mat-icon>
                         </button>
                     </span>
                 </div>
             </div>
 
-            <div class="row">
-              <div class="col-lg-4 col-md-6" *ngFor="let room of rooms">
-                <div class="card">
-                  
-                  <div class="card-header">
-                      <h3 class="card-title link" routerLink="/info-sala/{{ room.id }}">{{ room.name }}</h3>
-                      <div class="row">
-                          <h5 class="card-subtitle">{{ room.id }}</h5>
-                          <h5 class="card-subtitle ml-auto">{{ room.manager_id }}</h5>
-                      </div>
-                  </div>
-                  <div class="card-body">
-                      <div class="row">
-                        <div class="col-lg-12 col-md-6 d-flex m-card-image">
-                          <img class="link img-fluid" [src]="room.path_image" [alt]="room.name" routerLink="/info-sala/{{ room.id }}">
-                        </div>
-                        <div class="col-lg-12 col-md-6">
+            <div class="row align-items-start">
+                <div class="col-lg-4 col-md-6" *ngFor="let room of rooms">
+                
+                    <div class="card card-room">
+                    
+                        <div class="card-header">
+                            <div class="card-title link hover-info" routerLink="/info-sala/{{ room.id }}">{{ room.name }}</div>
                             <div class="row">
-                                <div class="col-lg-8 col-md-12">
-                                    <p>{{ room.description }}</p>
+                                <h5 class="card-subtitle">{{ room.id }}</h5>
+                                <h5 class="card-subtitle ml-auto">{{ room.manager_id | uppercase }}</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col d-flex m-card-image">
+                                    <img class="link img-fluid" [src]="room.path_image" [alt]="room.name" routerLink="/info-sala/{{ room.id }}">
                                 </div>
-        
-                                <div class="col-lg-4 col-md-6 col-md-offset-3">
-                                    <button mat-raised-button color="primary" routerLink="/reserva/{{ room.id }}" class="fill-width p-init">Reservar</button>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="pt-10 m-b-0">{{ room.description }}</p>
                                 </div>
                             </div>
                         </div>
-                      </div>
-                  </div>
+                        <div class="card-footer">
+                            <button mat-raised-button color="sidebar" routerLink="/horario/{{ room?.id }}" class="fill-width">Ver Horarios</button>
+                            <button mat-raised-button color="black" routerLink="/reserva/{{ room.id }}" class="fill-width">Reservar</button>
+                        </div>
+
+                    </div>
                 </div>
-              </div>
             </div>
 
         </div>
