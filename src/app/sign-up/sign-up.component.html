@@ -31,7 +31,7 @@
         </div>
       </nav>
       <br>
-      <div *ngIf= modal_error>
+      <div *ngIf= error> <!--habia un modal_error??-->
         <div class="alert alert-danger alert-dismissible fade show " role="alert" style=" margin-top: 4%; width: 700px; margin-left: 28%;">
           <strong>¡No pudimos verificar tus credenciales!</strong> Por favor, vuelve a verificar e inténtalo de nuevo.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="quitar_alerta()">
