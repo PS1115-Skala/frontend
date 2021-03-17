@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, NgModule, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, NgModule, ChangeDetectorRef, ElementRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { AppService } from 'app/app.service';
