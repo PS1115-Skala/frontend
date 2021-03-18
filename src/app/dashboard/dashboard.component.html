@@ -30,16 +30,16 @@
                 
                     <div class="card card-room">
                     
-                        <div class="card-header">
+                        <div class="card-header card-header-warning">
                             <div class="card-title link hover-info" routerLink="/info-sala/{{ room.id }}">{{ room.name }}</div>
                             <div class="row">
-                                <h5 class="card-subtitle">{{ room.id }}</h5>
-                                <h5 class="card-subtitle ml-auto">{{ room.manager_id | uppercase }}</h5>
+                                <h5 class="card-subtitle p-l-10">{{ room.id }}</h5>
+                                <h5 class="card-subtitle ml-auto p-r-10">{{ room.manager_id | uppercase }}</h5>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col d-flex m-card-image">
+                                <div class="col m-card-image">
                                     <img class="link img-fluid" [src]="room.path_image" [alt]="room.name" routerLink="/info-sala/{{ room.id }}">
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="card-footer">
                             <button mat-raised-button color="sidebar" routerLink="/horario/{{ room?.id }}" class="fill-width">Ver Horarios</button>
-                            <button mat-raised-button color="black" routerLink="/reserva/{{ room.id }}" class="fill-width">Reservar</button>
+                            <button mat-raised-button color="black" routerLink="/reserva/{{ room.id }}" class="fill-width m-l-10">Reservar</button>
                         </div>
 
                     </div>

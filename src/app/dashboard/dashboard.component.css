@@ -6,6 +6,10 @@
     margin: 10px;
 }
 
+.m-l-10 {
+    margin-left: 10px;
+}
+
 .pt-10 {
     padding-top: 10px;
 }
@@ -63,6 +67,10 @@
     margin-bottom: 15px !important;
 }
 
+.card-header-warning {
+    background: linear-gradient(60deg, #3C4858, black) !important;
+}
+
 .card-title {
     /* width: fit-content; */
     font-size: 1.5625rem;
@@ -72,11 +80,16 @@
 }
 
 .m-card-image {
-    margin-top: -25px;
+    margin-top: -20px;
+    width: 260px;
+    height: 190px;
+    overflow: hidden;
+    justify-content: center;
 }
 
 img {
-    max-height: 300px;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 .link {
