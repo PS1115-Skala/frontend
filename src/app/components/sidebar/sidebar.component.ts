@@ -56,7 +56,6 @@ export class SidebarComponent implements OnInit {
     this.app.isUserType(USER_TYPE.LAB_ADMIN).then((isLabAdmin) => {
       if (isLabAdmin) {
         this.addNewRoomsRoute();
-        this.addMetricRoute();
       }
     });
     this.userName = localStorage.getItem("userName");
