@@ -104,7 +104,7 @@ export class DetalleUsuarioComponent implements OnInit {
           updValues[v[0]] = null;
         }
       })
-      this.service.updateUser(updValues.id, updValues.name, updValues.email, updValues.type, updValues.verificado, updValues.activo, updValues.chief).subscribe( response => {
+      this.service.updateUser(this.id, updValues.name, updValues.email, updValues.type, updValues.verificado, updValues.activo, updValues.chief).subscribe( response => {
         console.log(response);
         this.showSnackBar(response.message);
       });
