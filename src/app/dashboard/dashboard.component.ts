@@ -10,7 +10,6 @@ import { USER_TYPE } from 'app/interfaces/user';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
   private _rooms: Rooms[];
   public rooms: Rooms[];
   public is_admin: boolean;

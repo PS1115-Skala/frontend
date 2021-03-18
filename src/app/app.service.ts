@@ -217,7 +217,6 @@ export class AppService {
     chief: string
   ): Observable<any> {
     let body = {
-      id: id,
       name: name != null ? name : undefined,
       email: email != null ? email : undefined,
       type: type != null ? type : undefined,
@@ -225,7 +224,7 @@ export class AppService {
       is_active: is_active != null ? is_active : undefined,
       chief: chief != null ? chief : undefined,
     };
-    return this.http.put<any>(API + "usuario/update", body);
+    return this.http.put<any>(API + `usuario/update/${id}`, body);
   }
 
   getSubjects(): Observable<any[]> {
